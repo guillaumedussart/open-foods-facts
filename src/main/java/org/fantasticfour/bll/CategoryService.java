@@ -1,9 +1,6 @@
 package org.fantasticfour.bll;
 
 
-import fr.digi.jdbc.bo.Article;
-import fr.digi.jdbc.dal.DAOFactory;
-import fr.digi.jdbc.dal.IArticleDAO;
 import org.fantasticfour.dal.DAOFactory;
 import org.fantasticfour.dal.ICategoryDAO;
 
@@ -13,7 +10,7 @@ import java.util.Set;
 public class CategoryService {
 
     private static CategoryService single;
-    private ICategoryDAO dao = DAOFactory.getArticleDAO();
+    private ICategoryDAO dao = DAOFactory.getCategoryDAO();
 
     private CategoryService() {
     }//Prevent initialization

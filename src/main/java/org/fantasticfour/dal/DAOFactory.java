@@ -1,12 +1,21 @@
 package org.fantasticfour.dal;
 
 
-public final class DAOFactory {
+import org.fantasticfour.dal.jpa.CategoryJPADAO;
 
+public final class DAOFactory {
 
 
     private DAOFactory() {
     }
 
+    public static ICategoryDAO getCategoryDAO() {
 
+        ICategoryDAO dao = null;
+
+        dao = new CategoryJPADAO();
+
+
+        return dao;
+    }
 }
