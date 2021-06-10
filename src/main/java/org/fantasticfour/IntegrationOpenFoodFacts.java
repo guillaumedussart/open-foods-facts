@@ -1,6 +1,6 @@
 package org.fantasticfour;
 
-public class App {
+public class IntegrationOpenFoodFacts {
     public static void main(String[] args) {
 
     }
