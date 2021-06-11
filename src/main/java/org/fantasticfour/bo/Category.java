@@ -5,13 +5,10 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-/**
- *  article
- *
- */
 
 @Entity
 @Table(name="categories")
+
 public class Category implements Serializable {
 
 	@Id
@@ -22,7 +19,7 @@ public class Category implements Serializable {
 	private String name;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    private Set<Product> product;
+    private Set<Product> products;
 
 	public Category(String name) {
 		this.name = name;
@@ -48,17 +45,10 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", name=" + name + ", product=" + product + "]";
+		return "Category [id=" + id + ", name=" + name + ", product=" + products + "]";
 	}
     
 	

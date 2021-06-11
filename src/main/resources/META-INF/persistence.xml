@@ -9,15 +9,14 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
     <persistence-unit name="open-food-facts" transaction-type="RESOURCE_LOCAL">
 
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class></class>
-        <class></class>
-        <class></class>
-        <class></class>
-        <class></class>
-        <class></class>
+        <class>org.fantasticfour.bo.Additive</class>
+        <class>org.fantasticfour.bo.Allergen</class>
+        <class>org.fantasticfour.bo.Category</class>
+        <class>org.fantasticfour.bo.Product</class>
+        <class>org.fantasticfour.bo.Vitamine</class>
         <properties>
             <!-- desactiver l'autodetection des classes de type @Entity -->
-            <property name="hibernate.archive.autodetection" value="false"/>
+            <property name="hibernate.archive.autodetection" value="true"/>
             <!-- Activation de la génération des tables manquantes uniquement -->
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <!-- Drop and create à chaque redémarrage -->
@@ -27,12 +26,11 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
             <!-- Affichage des requêtes SQL -->
             <property name="hibernate.show_sql" value="true"/>
             <!-- Paramètres d'accès à la BDD -->
-            <property name="javax.persistence.jdbc.url"
-
-                      value="jdbc:mysql://localhost:3306/open-food-facts"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value="${Resource.password}"/>
-            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://bcgpjkchufcibdz0scoj-mysql.services.clever-cloud.com:3306/bcgpjkchufcibdz0scoj"/>
+            <property name="javax.persistence.jdbc.user" value="udka2yifm2sw9ecj"/>
+            <property name="javax.persistence.jdbc.password" value="9XDyzfHKSW0XJbPbdWTt"/>
+            <property name="javax.persistence.jdbc.driver"
+                      value="org.mariadb.jdbc.Driver"/>
         </properties>
     </persistence-unit>
 </persistence>
