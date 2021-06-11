@@ -3,6 +3,7 @@ package org.fantasticfour.bo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "ingredients")
@@ -12,29 +13,26 @@ public class Ingredient implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Column(name="name",length = 50)
+    @Column(name = "name", length = 50)
     private String name;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_product")
-    private Product product;
+    @ManyToMany(mappedBy = "ingredients")
+    private Set<Product> products;
 
     public Ingredient() {
     }
 
-    public Ingredient(String name, Product product) {
+    public Ingredient(String name,Set<Product> products) {
         this.name = name;
-        this.product = product;
+        this.products = products;
     }
 
     /**
      * get field @Id
-     @GeneratedValue
-
-      *
-      * @return id @Id
-     @GeneratedValue
-
+     *
+     * @return id @Id
+     * @GeneratedValue
+     * @GeneratedValue
      */
     public Long getId() {
         return this.id;
@@ -42,12 +40,10 @@ public class Ingredient implements Serializable {
 
     /**
      * set field @Id
-     @GeneratedValue
-
-      *
-      * @param id @Id
-     @GeneratedValue
-
+     *
+     * @param id @Id
+     * @GeneratedValue
+     * @GeneratedValue
      */
     public void setId(Long id) {
         this.id = id;
@@ -57,7 +53,6 @@ public class Ingredient implements Serializable {
      * get field @Column(name="name",length = 50)
      *
      * @return name @Column(name="name",length = 50)
-
      */
     public String getName() {
         return this.name;
@@ -67,41 +62,29 @@ public class Ingredient implements Serializable {
      * set field @Column(name="name",length = 50)
      *
      * @param name @Column(name="name",length = 50)
-
      */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * get field @ManyToOne(cascade = CascadeType.PERSIST)
-     @JoinColumn(name = "id_product")
 
-      *
-      * @return product @ManyToOne(cascade = CascadeType.PERSIST)
-     @JoinColumn(name = "id_product")
+    /**
+     * get field @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST)
+     *
+     * @return products @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST)
 
      */
-    public Product getProduct() {
-        return this.product;
+    public Set<Product> getProducts() {
+        return this.products;
     }
 
     /**
-     * set field @ManyToOne(cascade = CascadeType.PERSIST)
-     @JoinColumn(name = "id_product")
-
-      *
-      * @param product @ManyToOne(cascade = CascadeType.PERSIST)
-     @JoinColumn(name = "id_product")
+     * set field @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST)
+     *
+     * @param products @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST)
 
      */
-    public void setProduct(Product product) {
-        if(this.product != null){
-            this.product.getIngredients().remove(this);
-        }
-        this.product = product;
-        if (this.product != null){
-            this.product.getIngredients().add(this);
-        }
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }

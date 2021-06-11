@@ -1,5 +1,8 @@
 package org.fantasticfour.csv;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -10,6 +13,8 @@ import java.util.*;
 
 public class ConfigCSV {
 
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
+    private static EntityManager em = emf.createEntityManager();
 
     public static void main(String[] args) throws IOException {
 
@@ -53,7 +58,8 @@ public class ConfigCSV {
             }*//*
         }
 */
-
+        emf.close();
+        em.close();
     }
 
 }
