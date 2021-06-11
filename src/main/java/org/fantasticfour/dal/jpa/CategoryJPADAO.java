@@ -6,11 +6,25 @@ import org.fantasticfour.dal.ICategoryDAO;
 import java.sql.SQLException;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 public class CategoryJPADAO implements ICategoryDAO {
 
-
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
+	private EntityManager em = emf.createEntityManager();
+	
 	@Override
 	public void create(Category o) throws SQLException {
+		
+		em.getTransaction().begin();
+		
+		Category category = new Category(o.getName());
+		
+		em.persist(category);
+		
+		em.getTransaction().commit();
 
 	}
 
@@ -26,7 +40,7 @@ public class CategoryJPADAO implements ICategoryDAO {
 
 	@Override
 	public void update(Category o) throws SQLException {
-
+		
 	}
 
 	@Override
