@@ -5,29 +5,24 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name = "additives")
-public class Additive implements Serializable {
+@Table(name = "marks")
+public class Mark implements Serializable {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(name = "name",length = 100,nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_product")
     private Set<Product> products;
 
-
-    public Additive() {
-
+    public Mark() {
     }
 
-    public Additive(String name) {
-        this.name = name;
-    }
-
-    public Additive(String name, Set<Product> products) {
+    public Mark(String name, Set<Product> products) {
         this.name = name;
         this.products = products;
     }
@@ -59,9 +54,9 @@ public class Additive implements Serializable {
     }
 
     /**
-     * get field @Column(name = "name",length = 100,nullable = false)
+     * get field @Column(name = "name")
      *
-     * @return name @Column(name = "name",length = 100,nullable = false)
+     * @return name @Column(name = "name")
 
      */
     public String getName() {
@@ -69,9 +64,9 @@ public class Additive implements Serializable {
     }
 
     /**
-     * set field @Column(name = "name",length = 100,nullable = false)
+     * set field @Column(name = "name")
      *
-     * @param name @Column(name = "name",length = 100,nullable = false)
+     * @param name @Column(name = "name")
 
      */
     public void setName(String name) {
@@ -79,9 +74,12 @@ public class Additive implements Serializable {
     }
 
     /**
-     * get field @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
-     *
-     * @return products @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
+     * get field @OneToMany(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_product")
+
+      *
+      * @return products @OneToMany(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_product")
 
      */
     public Set<Product> getProducts() {
@@ -89,9 +87,12 @@ public class Additive implements Serializable {
     }
 
     /**
-     * set field @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
-     *
-     * @param products @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
+     * set field @OneToMany(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_product")
+
+      *
+      * @param products @OneToMany(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_product")
 
      */
     public void setProducts(Set<Product> products) {
