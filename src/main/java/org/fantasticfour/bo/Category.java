@@ -18,7 +18,8 @@ public class Category implements Serializable {
     @Column(name = "name")
 	private String name;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_category")
     private Set<Product> products;
 
 	public Category(String name) {
