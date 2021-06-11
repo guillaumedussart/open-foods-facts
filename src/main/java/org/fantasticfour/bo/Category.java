@@ -1,6 +1,7 @@
 package org.fantasticfour.bo;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -17,11 +18,11 @@ public class Category implements Serializable {
     @GeneratedValue
 	private int id;
 	
-    @Column(name = "NOM")
+    @Column(name = "name")
 	private String name;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
-    private Product product;
+    private Set<Product> product;
 
 	public Category(String name) {
 		this.name = name;

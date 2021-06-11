@@ -12,7 +12,7 @@ public class Product implements Serializable{
 	@GeneratedValue
 	private int id;
 
-	@Column(name = "NOM")
+	@Column(name = "name")
 	private String name;
 	
 	@Column(name = "")
