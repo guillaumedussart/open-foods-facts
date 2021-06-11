@@ -96,6 +96,12 @@ public class Ingredient implements Serializable {
 
      */
     public void setProduct(Product product) {
+        if(this.product != null){
+            this.product.getIngredients().remove(this);
+        }
         this.product = product;
+        if (this.product != null){
+            this.product.getIngredients().add(this);
+        }
     }
 }
