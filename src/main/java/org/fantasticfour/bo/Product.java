@@ -1,5 +1,7 @@
 package org.fantasticfour.bo;
 
+import com.mysql.cj.xdevapi.Client;
+
 import java.io.Serializable;
 import java.util.Set;
 
@@ -254,6 +256,17 @@ public class Product implements Serializable{
 	public void setAllergenes(Set<Allergen> allergenes) {
 		this.allergenes = allergenes;
 	}
+	/**
+	 * add ingredient
+	 *
+	 * @param ingredient ingredient
+	 */
+	public void addIngredient(Ingredient ingredient) {
+		if (ingredient != null) {
+			ingredient.setProduct(this);
+		}
+	}
+
 
 	@Override
 	public String toString() {
