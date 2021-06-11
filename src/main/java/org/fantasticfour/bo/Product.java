@@ -14,4 +14,6 @@ public class Product implements Serializable{
 
 	@Column(name = "NOM")
 	private String name;
+	
+	@Column(name = "")
 }
