@@ -4,15 +4,12 @@
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
-<<<<<<< HEAD
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping />
-=======
         <datasource-mapping>
           <factory-entry name="open-food-facts" />
           <factory-entry name="petstore" />
         </datasource-mapping>
->>>>>>> 32361df301c731e984864555d3dcc81b7fd5b338
         <naming-strategy-map />
       </configuration>
     </facet>
