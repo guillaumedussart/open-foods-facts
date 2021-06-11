@@ -22,4 +22,44 @@ public class Category implements Serializable {
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     private Product product;
+
+	public Category(String name) {
+		this.name = name;
+	}
+
+	public Category() {
+		super();
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", name=" + name + ", product=" + product + "]";
+	}
+    
+	
+    
 }
