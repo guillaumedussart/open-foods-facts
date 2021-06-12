@@ -13,7 +13,7 @@ public class Ingredient implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @Column(name = "name", length = 50)
+    @Column(name = "name", length = 255)
     private String name;
 
     @ManyToMany(mappedBy = "ingredients")
@@ -25,6 +25,10 @@ public class Ingredient implements Serializable {
     public Ingredient(String name,Set<Product> products) {
         this.name = name;
         this.products = products;
+    }
+
+    public Ingredient(String name) {
+        this.name = name;
     }
 
     /**

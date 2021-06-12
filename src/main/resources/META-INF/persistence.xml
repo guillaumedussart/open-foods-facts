@@ -28,9 +28,12 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
             <!-- Affichage des requêtes SQL -->
             <property name="hibernate.show_sql" value="true"/>
             <!-- Paramètres d'accès à la BDD -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://bcgpjkchufcibdz0scoj-mysql.services.clever-cloud.com:3306/bcgpjkchufcibdz0scoj"/>
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:mysql://bcgpjkchufcibdz0scoj-mysql.services.clever-cloud.com:3306/bcgpjkchufcibdz0scoj"/>
             <property name="javax.persistence.jdbc.user" value="udka2yifm2sw9ecj"/>
-            <property name="javax.persistence.jdbc.password" value="9XDyzfHKSW0XJbPbdWTt"/>
+            <property name="javax.persistence.jdbc.password" value="9XDyzfHKSW0XJbPbdWTt"/>-->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/foods"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="ava210709"/>
             <property name="javax.persistence.jdbc.driver"
                       value="org.mariadb.jdbc.Driver"/>
         </properties>

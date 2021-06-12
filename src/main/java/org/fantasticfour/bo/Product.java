@@ -83,6 +83,10 @@ public class Product implements Serializable {
     @JoinColumn(name = "id_product")
     private Set<Allergen> allergenes;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_mark")
+    private Mark mark;
+
     public Product() {
         super();
     }
@@ -296,5 +300,31 @@ public class Product implements Serializable {
      */
     public void setVitamines(Set<Vitamine> vitamines) {
         this.vitamines = vitamines;
+    }
+
+    /**
+     * get field @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_mark")
+
+      *
+      * @return mark @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_mark")
+
+     */
+    public Mark getMark() {
+        return this.mark;
+    }
+
+    /**
+     * set field @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_mark")
+
+      *
+      * @param mark @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_mark")
+
+     */
+    public void setMark(Mark mark) {
+        this.mark = mark;
     }
 }
