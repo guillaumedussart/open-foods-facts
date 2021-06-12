@@ -6,6 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
+          <factory-entry name="open-food-facts" />
           <factory-entry name="traitement-fichier-jpa-off" />
         </datasource-mapping>
         <naming-strategy-map />
