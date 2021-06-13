@@ -37,6 +37,10 @@ public class CategoryJPADAO implements ICategoryDAO {
 
 	@Override
 	public Set<Category> findAll() throws SQLException {
+		Query query = em.createQuery("SELECT c.firstName, c.lastName FROM categorie c");
+		
+		
+		
 		return null;
 	}
 
