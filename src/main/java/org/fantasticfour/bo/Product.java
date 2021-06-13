@@ -8,275 +8,323 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name="produits")
-public class Product implements Serializable{
-	
-	@Id
-	@GeneratedValue
-	private int id;
+@Table(name = "produits")
+public class Product implements Serializable {
 
-	@Column(name = "name")
-	private String name;
-	
-	@Column(name = "nutri_score")
-	private String nutri_score;
-	
-	@Column(name = "calorie")
-	private double energy;
-	
-	@Column(name = "graisse")
-	private double fat;
-	
-	@Column(name = "sucre")
-	private double sucre;
-	
-	@Column(name = "fibre")
-	private double fiber;
-	
-	@Column(name = "proteine")
-	private double proteins;
-	
-	@Column(name = "sel")
-	private double salt;
-	
-	@Column(name = "calcium")
-	private double calcium;
-	
-	@Column(name = "magnesium")
-	private double magnesium;
-	
-	@Column(name = "iron")
-	private double iron;
-	
-	@Column(name = "fer")
-	private double fer;
-	
-	@Column(name = "beta_caroten")
-	private double beta_carotene;
-	
-	@Column(name = "huile_de_palme")
-	private boolean palm_oil;
-	
-	@ManyToMany()
-	@JoinTable(name = "prod_add",
-    joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "id_additive", referencedColumnName = "id"))
-	private Set<Additive> additives;
-	
-	@ManyToMany()
-	@JoinTable(name = "prod_ing",
-    joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
-    inverseJoinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "id"))
-	private Set<Ingredient> ingredients;
-	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "id_category")
-	private Category categorie;
-	
-	@OneToMany(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "id_product")
-	private Set<Allergen> allergenes;
+    @Id
+    @GeneratedValue
+    private int id;
 
-	public Product() {
-		super();
-	}
-	
-	public Product( String name, String nutri_score, double energy, double fat, double sucre, double fiber,
-			double proteins, double salt, double calcium, double magnesium, double iron, double fer,
-			double beta_carotene, boolean palm_oil, Set<Additive> additives, Set<Ingredient> ingredients,
-			Category categorie, Set<Allergen> allergenes) {
-		this.name = name;
-		this.nutri_score = nutri_score;
-		this.energy = energy;
-		this.fat = fat;
-		this.sucre = sucre;
-		this.fiber = fiber;
-		this.proteins = proteins;
-		this.salt = salt;
-		this.calcium = calcium;
-		this.magnesium = magnesium;
-		this.iron = iron;
-		this.fer = fer;
-		this.beta_carotene = beta_carotene;
-		this.palm_oil = palm_oil;
-		this.additives = additives;
-		this.ingredients = ingredients;
-		this.categorie = categorie;
-		this.allergenes = allergenes;
-	}
+    @Column(name = "name")
+    private String name;
 
-	public int getId() {
-		return id;
-	}
+    @Column(name = "nutri_score")
+    private String nutri_score;
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    @Column(name = "calorie")
+    private double energy;
 
-	public String getName() {
-		return name;
-	}
+    @Column(name = "graisse")
+    private double fat;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Column(name = "sucre")
+    private double sucre;
 
-	public String getNutri_score() {
-		return nutri_score;
-	}
+    @Column(name = "fibre")
+    private double fiber;
 
-	public void setNutri_score(String nutri_score) {
-		this.nutri_score = nutri_score;
-	}
+    @Column(name = "proteine")
+    private double proteins;
 
-	public double getEnergy() {
-		return energy;
-	}
+    @Column(name = "sel")
+    private double salt;
 
-	public void setEnergy(double energy) {
-		this.energy = energy;
-	}
+    @Column(name = "calcium")
+    private double calcium;
 
-	public double getFat() {
-		return fat;
-	}
+    @Column(name = "magnesium")
+    private double magnesium;
 
-	public void setFat(double fat) {
-		this.fat = fat;
-	}
+    @Column(name = "iron")
+    private double iron;
 
-	public double getSucre() {
-		return sucre;
-	}
+    @Column(name = "fer")
+    private double fer;
 
-	public void setSucre(double sucre) {
-		this.sucre = sucre;
-	}
+    @Column(name = "beta_caroten")
+    private double beta_carotene;
 
-	public double getFiber() {
-		return fiber;
-	}
+    @Column(name = "huile_de_palme")
+    private boolean palm_oil;
 
-	public void setFiber(double fiber) {
-		this.fiber = fiber;
-	}
+    @ManyToMany()
+    @JoinTable(name = "prod_add",
+            joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_additive", referencedColumnName = "id"))
+    private Set<Additive> additives;
 
-	public double getProteins() {
-		return proteins;
-	}
+    @ManyToMany
+    @JoinTable(name = "prod_ing",
+            joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "id"))
+    private Set<Ingredient> ingredients;
 
-	public void setProteins(double proteins) {
-		this.proteins = proteins;
-	}
+    @ManyToMany
+    @JoinTable(name = "prod_vit",
+            joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
+    private Set<Vitamine> vitamines;
 
-	public double getSalt() {
-		return salt;
-	}
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_category")
+    private Category categorie;
 
-	public void setSalt(double salt) {
-		this.salt = salt;
-	}
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_product")
+    private Set<Allergen> allergenes;
 
-	public double getCalcium() {
-		return calcium;
-	}
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_mark")
+    private Mark mark;
 
-	public void setCalcium(double calcium) {
-		this.calcium = calcium;
-	}
+    public Product() {
+        super();
+    }
 
-	public double getMagnesium() {
-		return magnesium;
-	}
+    public Product(String name, String nutri_score, double energy, double fat, double sucre, double fiber,
+                   double proteins, double salt, double calcium, double magnesium, double iron, double fer,
+                   double beta_carotene, boolean palm_oil, Set<Additive> additives, Set<Ingredient> ingredients,
+                   Category categorie, Set<Allergen> allergenes) {
+        this.name = name;
+        this.nutri_score = nutri_score;
+        this.energy = energy;
+        this.fat = fat;
+        this.sucre = sucre;
+        this.fiber = fiber;
+        this.proteins = proteins;
+        this.salt = salt;
+        this.calcium = calcium;
+        this.magnesium = magnesium;
+        this.iron = iron;
+        this.fer = fer;
+        this.beta_carotene = beta_carotene;
+        this.palm_oil = palm_oil;
+        this.additives = additives;
+        this.ingredients = ingredients;
+        this.categorie = categorie;
+        this.allergenes = allergenes;
+    }
 
-	public void setMagnesium(double magnesium) {
-		this.magnesium = magnesium;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public double getIron() {
-		return iron;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public void setIron(double iron) {
-		this.iron = iron;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public double getFer() {
-		return fer;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setFer(double fer) {
-		this.fer = fer;
-	}
+    public String getNutri_score() {
+        return nutri_score;
+    }
 
-	public double getBeta_carotene() {
-		return beta_carotene;
-	}
+    public void setNutri_score(String nutri_score) {
+        this.nutri_score = nutri_score;
+    }
 
-	public void setBeta_carotene(double beta_carotene) {
-		this.beta_carotene = beta_carotene;
-	}
+    public double getEnergy() {
+        return energy;
+    }
 
-	public boolean isPalm_oil() {
-		return palm_oil;
-	}
+    public void setEnergy(double energy) {
+        this.energy = energy;
+    }
 
-	public void setPalm_oil(boolean palm_oil) {
-		this.palm_oil = palm_oil;
-	}
+    public double getFat() {
+        return fat;
+    }
 
-	public Set<Additive> getAdditives() {
-		return additives;
-	}
+    public void setFat(double fat) {
+        this.fat = fat;
+    }
 
-	public void setAdditives(Set<Additive> additives) {
-		this.additives = additives;
-	}
+    public double getSucre() {
+        return sucre;
+    }
 
-	public Set<Ingredient> getIngredients() {
-		return ingredients;
-	}
+    public void setSucre(double sucre) {
+        this.sucre = sucre;
+    }
 
-	public void setIngredients(Set<Ingredient> ingredients) {
-		this.ingredients = ingredients;
-	}
+    public double getFiber() {
+        return fiber;
+    }
 
-	public Category getCategorie() {
-		return categorie;
-	}
+    public void setFiber(double fiber) {
+        this.fiber = fiber;
+    }
 
-	public void setCategorie(Category categorie) {
-		this.categorie = categorie;
-	}
+    public double getProteins() {
+        return proteins;
+    }
 
-	public Set<Allergen> getAllergenes() {
-		return allergenes;
-	}
+    public void setProteins(double proteins) {
+        this.proteins = proteins;
+    }
 
-	public void setAllergenes(Set<Allergen> allergenes) {
-		this.allergenes = allergenes;
-	}
-	/**
-	 * add ingredient
-	 *
-	 * @param ingredient ingredient
-	 */
-	public void addIngredient(Ingredient ingredient) {
-		if (ingredient != null) {
-			ingredient.setProduct(this);
-		}
-	}
+    public double getSalt() {
+        return salt;
+    }
+
+    public void setSalt(double salt) {
+        this.salt = salt;
+    }
+
+    public double getCalcium() {
+        return calcium;
+    }
+
+    public void setCalcium(double calcium) {
+        this.calcium = calcium;
+    }
+
+    public double getMagnesium() {
+        return magnesium;
+    }
+
+    public void setMagnesium(double magnesium) {
+        this.magnesium = magnesium;
+    }
+
+    public double getIron() {
+        return iron;
+    }
+
+    public void setIron(double iron) {
+        this.iron = iron;
+    }
+
+    public double getFer() {
+        return fer;
+    }
+
+    public void setFer(double fer) {
+        this.fer = fer;
+    }
+
+    public double getBeta_carotene() {
+        return beta_carotene;
+    }
+
+    public void setBeta_carotene(double beta_carotene) {
+        this.beta_carotene = beta_carotene;
+    }
+
+    public boolean isPalm_oil() {
+        return palm_oil;
+    }
+
+    public void setPalm_oil(boolean palm_oil) {
+        this.palm_oil = palm_oil;
+    }
+
+    public Set<Additive> getAdditives() {
+        return additives;
+    }
+
+    public void setAdditives(Set<Additive> additives) {
+        this.additives = additives;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public Category getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Category categorie) {
+        this.categorie = categorie;
+    }
+
+    public Set<Allergen> getAllergenes() {
+        return allergenes;
+    }
+
+    public void setAllergenes(Set<Allergen> allergenes) {
+        this.allergenes = allergenes;
+    }
 
 
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", nutri_score=" + nutri_score + ", energy=" + energy + ", fat="
-				+ fat + ", sucre=" + sucre + ", fiber=" + fiber + ", proteins=" + proteins + ", salt=" + salt
-				+ ", calcium=" + calcium + ", magnesium=" + magnesium + ", iron=" + iron + ", fer=" + fer
-				+ ", beta_carotene=" + beta_carotene + ", palm_oil=" + palm_oil + ", additives=" + additives
-				+ ", categorie=" + categorie + ", allergenes=" + allergenes + "]";
-	}
-	
-	
-		
+    /**
+     * get field @ManyToMany
+     @JoinTable(name = "prod_vit",
+     joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
+
+      *
+      * @return vitamines @ManyToMany
+     @JoinTable(name = "prod_vit",
+     joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
+
+     */
+    public Set<Vitamine> getVitamines() {
+        return this.vitamines;
+    }
+
+    /**
+     * set field @ManyToMany
+     @JoinTable(name = "prod_vit",
+     joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
+
+      *
+      * @param vitamines @ManyToMany
+     @JoinTable(name = "prod_vit",
+     joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
+
+     */
+    public void setVitamines(Set<Vitamine> vitamines) {
+        this.vitamines = vitamines;
+    }
+
+    /**
+     * get field @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_mark")
+
+      *
+      * @return mark @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_mark")
+
+     */
+    public Mark getMark() {
+        return this.mark;
+    }
+
+    /**
+     * set field @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_mark")
+
+      *
+      * @param mark @ManyToOne(cascade = CascadeType.PERSIST)
+     @JoinColumn(name = "id_mark")
+
+     */
+    public void setMark(Mark mark) {
+        this.mark = mark;
+    }
 }

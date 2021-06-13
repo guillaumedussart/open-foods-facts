@@ -16,7 +16,7 @@ public class Mark implements Serializable {
     private String name;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_product")
+    @JoinColumn(name = "id_mark")
     private Set<Product> products;
 
     public Mark() {
@@ -25,6 +25,10 @@ public class Mark implements Serializable {
     public Mark(String name, Set<Product> products) {
         this.name = name;
         this.products = products;
+    }
+
+    public Mark(String name) {
+        this.name = name;
     }
 
     /**

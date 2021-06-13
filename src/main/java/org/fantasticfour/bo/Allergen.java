@@ -7,10 +7,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "allergens")
 public class Allergen implements Serializable{
-	
-	
-
-
     @Id
     @GeneratedValue
     private Long id;
@@ -19,7 +15,7 @@ public class Allergen implements Serializable{
     private String nom;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "id_poduct")
+    @JoinColumn(name = "id_product")
     private Product product;
 
     public Allergen() {

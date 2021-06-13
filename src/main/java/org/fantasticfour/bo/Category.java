@@ -51,7 +51,31 @@ public class Category implements Serializable {
 	public String toString() {
 		return "Category [id=" + id + ", name=" + name + ", product=" + products + "]";
 	}
-    
-	
-    
+
+
+	/**
+	 * get field @OneToMany(cascade = CascadeType.PERSIST)
+	 @JoinColumn(name = "id_category")
+
+	  *
+	  * @return products @OneToMany(cascade = CascadeType.PERSIST)
+	 @JoinColumn(name = "id_category")
+
+	 */
+	public Set<Product> getProducts() {
+		return this.products;
+	}
+
+	/**
+	 * set field @OneToMany(cascade = CascadeType.PERSIST)
+	 @JoinColumn(name = "id_category")
+
+	  *
+	  * @param products @OneToMany(cascade = CascadeType.PERSIST)
+	 @JoinColumn(name = "id_category")
+
+	 */
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 }
