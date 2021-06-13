@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 public class CategoryJPADAO implements ICategoryDAO {
 
@@ -42,6 +43,17 @@ public class CategoryJPADAO implements ICategoryDAO {
 		
 		
 		return null;
+	}
+	
+	public Category findByName(String string) throws SQLException {
+		
+		TypedQuery<Category> query = em.createQuery("SELECT name FROM categories WHERE name =:name ", Category.class);
+		query.setParameter("name", string);
+		
+		Category category = query.getSingleResult();
+		
+		return category;
+		
 	}
 
 	@Override
