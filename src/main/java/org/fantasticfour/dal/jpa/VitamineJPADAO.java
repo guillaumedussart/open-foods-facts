@@ -8,49 +8,57 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import org.fantasticfour.bo.Mark;
-import org.fantasticfour.dal.IMarkDAO;
 
-public class MarkJPADAO implements IMarkDAO{
+import org.fantasticfour.bo.Vitamine;
+import org.fantasticfour.dal.IVitamineDAO;
+
+public class VitamineJPADAO implements IVitamineDAO{
 
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
 	private EntityManager em = emf.createEntityManager();
 	
 	@Override
-	public void create(Mark o) throws SQLException {
-		// TODO Auto-generated method stub
+	public void create(Vitamine o) throws SQLException {
+		em.getTransaction().begin();
+		
+		Vitamine vitamine = new Vitamine();
+		
+		em.persist(vitamine);
+		
+		em.getTransaction().commit();
 		
 	}
 
 	@Override
-	public Mark findById(Long id) throws SQLException {
+	public Vitamine findById(Long id) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Set<Mark> findAll() throws SQLException {
+	public Set<Vitamine> findAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public Mark findByName(String string) throws SQLException{
-		TypedQuery<Mark> query = em.createQuery("SELECT name FROM marks WHERE name = :name",Mark.class);
+	public Vitamine findByName(String string) throws SQLException{
+		
+		TypedQuery<Vitamine> query = em.createQuery("SELECT name FROM vitamines WHERE name = :name",Vitamine.class);
 		query.setParameter("name", string);
 
-		Mark mark = query.getSingleResult();
-		return mark;
+		Vitamine vitamine = query.getSingleResult();
+		return vitamine;
 		
 	}
 
 	@Override
-	public void update(Mark o) throws SQLException {
+	public void update(Vitamine o) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Mark o) {
+	public void delete(Vitamine o) {
 		// TODO Auto-generated method stub
 		
 	}

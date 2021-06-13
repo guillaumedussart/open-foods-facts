@@ -8,49 +8,50 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import org.fantasticfour.bo.Mark;
-import org.fantasticfour.dal.IMarkDAO;
+import org.fantasticfour.bo.Additive;
+import org.fantasticfour.dal.IAdditiveDAO;
 
-public class MarkJPADAO implements IMarkDAO{
+public class AdditiveJPADAO implements IAdditiveDAO{
 
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
 	private EntityManager em = emf.createEntityManager();
 	
 	@Override
-	public void create(Mark o) throws SQLException {
+	public void create(Additive o) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public Mark findById(Long id) throws SQLException {
+	public Additive findById(Long id) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Set<Mark> findAll() throws SQLException {
+	public Set<Additive> findAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-	public Mark findByName(String string) throws SQLException{
-		TypedQuery<Mark> query = em.createQuery("SELECT name FROM marks WHERE name = :name",Mark.class);
+	public Additive findByName(String string) throws SQLException {
+		TypedQuery<Additive> query = em.createQuery("SELECT name FROM categories WHERE name =:name ", Additive.class);
 		query.setParameter("name", string);
-
-		Mark mark = query.getSingleResult();
-		return mark;
+		
+		Additive additive = query.getSingleResult();
+		
+		return additive;
 		
 	}
 
 	@Override
-	public void update(Mark o) throws SQLException {
+	public void update(Additive o) throws SQLException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void delete(Mark o) {
+	public void delete(Additive o) {
 		// TODO Auto-generated method stub
 		
 	}
