@@ -43,7 +43,7 @@ public class VitamineJPADAO implements IVitamineDAO{
 	
 	public Vitamine findByName(String string) throws SQLException{
 		
-		TypedQuery<Vitamine> query = em.createQuery("SELECT name FROM vitamines WHERE name = :name",Vitamine.class);
+		TypedQuery<Vitamine> query = em.createQuery("SELECT v FROM Vitamine v WHERE v.name = :name",Vitamine.class);
 		query.setParameter("name", string);
 
 		Vitamine vitamine = query.getSingleResult();

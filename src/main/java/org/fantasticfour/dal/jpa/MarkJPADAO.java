@@ -35,7 +35,7 @@ public class MarkJPADAO implements IMarkDAO{
 	}
 	
 	public Mark findByName(String string) throws SQLException{
-		TypedQuery<Mark> query = em.createQuery("SELECT name FROM marks WHERE name = :name",Mark.class);
+		TypedQuery<Mark> query = em.createQuery("SELECT m.name FROM Mark m WHERE m.name = :name",Mark.class);
 		query.setParameter("name", string);
 
 		Mark mark = query.getSingleResult();

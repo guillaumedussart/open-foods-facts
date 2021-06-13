@@ -38,7 +38,7 @@ public class CategoryJPADAO implements ICategoryDAO {
 
 	@Override
 	public Set<Category> findAll() throws SQLException {
-		Query query = em.createQuery("SELECT c.firstName, c.lastName FROM categorie c");
+		Query query = em.createQuery("SELECT c FROM Category c");
 		
 		
 		
@@ -47,7 +47,7 @@ public class CategoryJPADAO implements ICategoryDAO {
 	
 	public Category findByName(String string) throws SQLException {
 		
-		TypedQuery<Category> query = em.createQuery("SELECT name FROM categories WHERE name =:name ", Category.class);
+		TypedQuery<Category> query = em.createQuery("SELECT c FROM Category c WHERE c.name =:name ", Category.class);
 		query.setParameter("name", string);
 		
 		Category category = query.getSingleResult();
@@ -73,7 +73,7 @@ public class CategoryJPADAO implements ICategoryDAO {
 		
 		em.getTransaction().begin();
 		
-		Query query = em.createQuery("UPDATE o SET o.nom = :nouveauNom WHERE o.nom = :ancienNom");
+		Query query = em.createQuery("UPDATE Category c SET c.name = :nouveauNom WHERE c.name = :ancienNom");
 		
 		query.setParameter("nouveauNom", nouveauNom);
 		
@@ -110,7 +110,7 @@ public class CategoryJPADAO implements ICategoryDAO {
 		
 		em.getTransaction().begin();
 		
-		Query query = em.createQuery("DELETE FROM categorie c WHERE c.id=:id");
+		Query query = em.createQuery("DELETE FROM Category c WHERE c.id=:id");
 		
 		query.setParameter("id", aLong);
 		

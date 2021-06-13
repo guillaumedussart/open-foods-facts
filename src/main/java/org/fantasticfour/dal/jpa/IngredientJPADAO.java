@@ -39,7 +39,7 @@ public class IngredientJPADAO implements IIngredientDAO {
 
 	@Override
 	public Set<Ingredient> findAll() throws SQLException {
-		TypedQuery<Ingredient> query = em.createQuery("SELECT name FROM ingredients",Ingredient.class);
+		TypedQuery<Ingredient> query = em.createQuery("SELECT i FROM Ingredient i",Ingredient.class);
 		List<Ingredient> listeIngredients = query.getResultList();
 		Set<Ingredient> setIngredients = new HashSet<Ingredient>();
 		
@@ -53,7 +53,7 @@ public class IngredientJPADAO implements IIngredientDAO {
 
 	public Ingredient findByName(String string) throws SQLException {
 
-		TypedQuery<Ingredient> query = em.createQuery("SELECT name FROM ingredients WHERE name = :name",Ingredient.class);
+		TypedQuery<Ingredient> query = em.createQuery("SELECT i FROM Ingredient i WHERE i.name = :name",Ingredient.class);
 		query.setParameter("name", string);
 
 		Ingredient ingredient = query.getSingleResult();
