@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Category implements Serializable {
 
 	@Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
     @Column(name = "name")

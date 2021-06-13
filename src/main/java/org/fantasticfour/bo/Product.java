@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Product implements Serializable {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "name")
@@ -113,6 +113,23 @@ public class Product implements Serializable {
         this.ingredients = ingredients;
         this.categorie = categorie;
         this.allergenes = allergenes;
+    }
+
+    public Product(String name, String nutri_score, double energy, double fat, double sucre, double fiber, double proteins, double salt, double calcium, double magnesium, double iron, double fer, double beta_carotene, boolean palm_oil) {
+        this.name = name;
+        this.nutri_score = nutri_score;
+        this.energy = energy;
+        this.fat = fat;
+        this.sucre = sucre;
+        this.fiber = fiber;
+        this.proteins = proteins;
+        this.salt = salt;
+        this.calcium = calcium;
+        this.magnesium = magnesium;
+        this.iron = iron;
+        this.fer = fer;
+        this.beta_carotene = beta_carotene;
+        this.palm_oil = palm_oil;
     }
 
     public int getId() {
@@ -270,16 +287,14 @@ public class Product implements Serializable {
 
     /**
      * get field @ManyToMany
-     @JoinTable(name = "prod_vit",
-     joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
-     inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
-
-      *
-      * @return vitamines @ManyToMany
-     @JoinTable(name = "prod_vit",
-     joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
-     inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
-
+     *
+     * @return vitamines @ManyToMany
+     * @JoinTable(name = "prod_vit",
+     * joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+     * inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
+     * @JoinTable(name = "prod_vit",
+     * joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+     * inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
      */
     public Set<Vitamine> getVitamines() {
         return this.vitamines;
@@ -287,16 +302,14 @@ public class Product implements Serializable {
 
     /**
      * set field @ManyToMany
-     @JoinTable(name = "prod_vit",
-     joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
-     inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
-
-      *
-      * @param vitamines @ManyToMany
-     @JoinTable(name = "prod_vit",
-     joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
-     inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
-
+     *
+     * @param vitamines @ManyToMany
+     * @JoinTable(name = "prod_vit",
+     * joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+     * inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
+     * @JoinTable(name = "prod_vit",
+     * joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
+     * inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
      */
     public void setVitamines(Set<Vitamine> vitamines) {
         this.vitamines = vitamines;
@@ -304,12 +317,10 @@ public class Product implements Serializable {
 
     /**
      * get field @ManyToOne(cascade = CascadeType.PERSIST)
-     @JoinColumn(name = "id_mark")
-
-      *
-      * @return mark @ManyToOne(cascade = CascadeType.PERSIST)
-     @JoinColumn(name = "id_mark")
-
+     *
+     * @return mark @ManyToOne(cascade = CascadeType.PERSIST)
+     * @JoinColumn(name = "id_mark")
+     * @JoinColumn(name = "id_mark")
      */
     public Mark getMark() {
         return this.mark;
@@ -317,12 +328,10 @@ public class Product implements Serializable {
 
     /**
      * set field @ManyToOne(cascade = CascadeType.PERSIST)
-     @JoinColumn(name = "id_mark")
-
-      *
-      * @param mark @ManyToOne(cascade = CascadeType.PERSIST)
-     @JoinColumn(name = "id_mark")
-
+     *
+     * @param mark @ManyToOne(cascade = CascadeType.PERSIST)
+     * @JoinColumn(name = "id_mark")
+     * @JoinColumn(name = "id_mark")
      */
     public void setMark(Mark mark) {
         this.mark = mark;

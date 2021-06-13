@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Table(name = "allergens")
 public class Allergen implements Serializable{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name",length = 50)
