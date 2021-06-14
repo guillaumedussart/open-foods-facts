@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class IntegrationOpenFoodFacts {
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
@@ -24,7 +25,7 @@ public class IntegrationOpenFoodFacts {
     public static void main(String[] args) throws IOException {
 
 
-        Path paths = Paths.get("C:/Users/Poyatos Rémi/Desktop/projet/open-food-facts.csv");
+        Path paths = Paths.get("/workspace/www/traitement-fichier-jpa-off/src/main/resources/open-food-facts.csv");
 
         File newFile = new File("/workspace/www/traitement-fichier-jpa-off/src/main/resources/files/recensement-copy.csv");
         FileWriter myWriter = new FileWriter("/workspace/www/traitement-fichier-jpa-off/src/main/resources/files/recensement-copy.csv");
@@ -45,6 +46,7 @@ public class IntegrationOpenFoodFacts {
                     .replace(" conservateur |antioxydant: levure", " conservateur antioxydant: levure")
                     .replace("|% [maltodextrine de blé", ",maltodextrine de blé")
                     .replace("Filets de colin d’A|aska 72%qualité sans arête*", "Filets de colin d’Aaska 72% qualité sans arête")
+                    .replace("Calin+ Fruits Pêche, Abricot, Fraise, Framboise)","Calin+ Fruits Pêche, Abricot, Fraise, Framboise")
                     .split("\\|");
 
             String categorie = part[0];
@@ -162,18 +164,18 @@ public class IntegrationOpenFoodFacts {
                 em.getTransaction().commit();
             }*/
 
-            /*System.out.println("nomProduit----------------------------------");
-            System.out.println(name);
-            System.out.println("------------------------------------------------");*/
+            System.out.println("nomProduit----------------------------------");
+            System.out.println(i+" "+name);
+            System.out.println("------------------------------------------------");
 
 
             Product products = new Product(name, nutriGrade, energie, fat, sugar, fiber, proteins, salt, calcium, magnesium, iron, fer, beta_carotene, palm_oil);
 
 
-            String replaceEnderscoreIngredients = ingredients
-                    .replace("vitamines:","")
+            String replaceEnderscoreIngredients = ingredients.toLowerCase(Locale.ROOT)
                     .replace("_", "")
                     .replace("]", "")
+                    .replace("[", "")
                     .replace(")", "")
                     .replace(" .", "")
                     .replace("[%","")
@@ -201,12 +203,43 @@ public class IntegrationOpenFoodFacts {
                     .replace("confiture extra de reines","confiture extra de reines,")
                     .replace("oeclatatton nutritionnelle pour / nutrition declaration for / nahrwertdeklaration pto / voedingswaardever,melding per 100 g energie / energy / energie","")
                     .replace("anti,agglomérant","antiagglomérant")
-                    .toLowerCase(Locale.ROOT);
+                    .replace("/ ingrediénten:","")
+                    .replace("[eau",",eau")
+                    .replace("sirop de glucose de blé ou mai's","sirop de glucose de blé ou maïs")
+                    .replace("dextrose de ma`i`s","dextrose de maïs")
+                    .replace("beurre. emmental râpé20%. levure","beurre, emmental râpé20%, levure")
+                    .replace("lait  écrémé en poudre. farine de malt d‘orge","lait  écrémé en poudre, farine de malt d‘orge")
+                    .replace("sucre ? crème fruits: fraise ou pêche ou ou framboise ou abricot","sucre , crème fruits: fraise ou pêche ou ou framboise ou abricot")
+                    .replace("poudre de écrémé ? jus de carotte","poudre de écrémé , jus de carotte")
+                    .replace("jus de potiron ? jus de betterave sureau ? arômes ?: : e330. e331 ferments sans","jus de potiron , jus de betterave sureau , arômes  e330 e331")
+                    /*=============Victoria 1-3_350======================================*/
+                    .replace("vitamines: b3. b5. b12. b6. b2. b1. b9. b8:","")
+                    .replace("agent de traitement de la farine: l,cystéine.","agent de traitement de la farine: lecystéine.")
+
+
+                    /*=============Dimitri 3_351-6_700=====================================*/
+
+
+                    /*=============Remi 6_701-10_050========================================*/
+
+
+                    /*=============Moa reste==================================================*/
+                    .replace(" protéines de lait'","protéines de lait")
+                    .replace(" extrat de vanille. 'ingredtent ongtne unjon eurqéenre."," extrait de vanille")
+                    .replace("lait écrémé – fruits: fraise ou framboise ou pêche ou abricot 10.3%","lait écrémé , fruits: fraise ou framboise ou pêche ou abricot 10.3%")
+                    .replace(" eau – crème – lait écrémé en poudre "," eau , crème , lait écrémé en poudre ")
+                    .replace("citrate de calcium – amidon transformé – épaississants: carraghénanes","citrate de calcium , amidon transformé , épaississants: carraghénanes")
+                    .replace("gomme de guar – colorants: anthocyanes","gomme de guar , colorants: anthocyanes")
+                    .replace("cochenille – arômes – édulcorants: acésulfame k","cochenille , arômes , édulcorants: acésulfame k")
+                    .replace("sucralose –  ferments lactiques du yaourt ","sucralose , ferments lactiques du yaourt ")
+                    .replace("jus de potiron — amidon transformé de mais ","jus de potiron , amidon transformé de mais ")
+                    .replace("sucre 8.9% · jus de carotte · sirop de glucose","sucre 8.9% , jus de carotte , sirop de glucose")
+                    ;
             myWriter.write(replaceEnderscoreIngredients+"\n");
             List<String> blockIngredientj = new ArrayList<String>(Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
             for (int j = 0; j < blockIngredientj.size(); j++) {
 
-                if (deleteSameIngredients.add(blockIngredientj.get(j).trim().toLowerCase(Locale.ROOT))) {
+                if (deleteSameIngredients.add(blockIngredientj.get(j).trim())) {
                     System.out.println(blockIngredientj.get(j));
 
                     /*em.getTransaction().begin();
