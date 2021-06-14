@@ -216,6 +216,9 @@ public class IntegrationOpenFoodFacts {
                     .replace("vitamines: b3. b5. b12. b6. b2. b1. b9. b8:","")
                     .replace("agent de traitement de la farine: l,cystéine.","agent de traitement de la farine: lecystéine.")
                     .replace("pre,cooked wholegrain basmati rice","precooked wholegrain basmati rice")
+                    .replace("conservateur: e202. colorant: e160c, arôme.","conservateur: e202. , colorant: e160c, arôme.")
+                    .replace("glucose syrup, sweetened condensed skim milk, sugar, water, salted modified starch, colouring: ordinary caramel, salt, flavour, preservative :, emulsifier: mono and diglycerides of fatty acids, acidifier: citric acid. 31 35 % ,fr , ingrédients: sirop de glucose, lait écrémé condensé sucré, sucre, eau, amidon modifié, colorant: caramel ordinaire, sel, arôme, conservateur., émulsifiant: mono et diglycérides d'acide gras, acidifiant: acide citrique caramel.' min 35 %. en'. production date and best before date: see below , to be stored in a clean, dry and cool placeopening. fr: date de production et a consommer de préférence avant le: voir ci,dessous , a conserver dans un endroit propre, 50 et250 ,a consommer de préférence 6 semaines après ouverture. yf±jfiifi pd 2clfl",
+                            "glucose syrup, sweetened condensed skim milk, sugar, water, salted modified starch, colouring: ordinary caramel, salt, flavour, preservative :, emulsifier: mono and diglycerides of fatty acids, acidifier: citric acid. 31 35 % ,fr , ingrédients: sirop de glucose, lait écrémé condensé sucré, sucre, eau, amidon modifié, colorant: caramel ordinaire, sel, arôme, conservateur., émulsifiant: mono et diglycérides d'acide gras, acidifiant: acide citrique caramel.' min 35 %. en'. production date and best before date: see below , to be stored in a clean, dry and cool placeopening. fr: date de production et a consommer de préférence avant le: voir ci,dessous , a conserver dans un endroit propre, 50 et250 ,a consommer de préférence 6 semaines après ouverture. yf±jfiifi pd 2clfl")
 
 
                     /*=============Dimitri 3_351-6_700=====================================*/
@@ -233,8 +236,33 @@ public class IntegrationOpenFoodFacts {
                     .replace("gomme de guar – colorants: anthocyanes","gomme de guar , colorants: anthocyanes")
                     .replace("cochenille – arômes – édulcorants: acésulfame k","cochenille , arômes , édulcorants: acésulfame k")
                     .replace("sucralose –  ferments lactiques du yaourt ","sucralose , ferments lactiques du yaourt ")
-                    .replace("jus de potiron — amidon transformé de mais ","jus de potiron , amidon transformé de mais ")
+                    .replace("jus de potiron — amidon transformé de mais ","jus de potiron , amidon transformé de maïs ")
                     .replace("sucre 8.9% · jus de carotte · sirop de glucose","sucre 8.9% , jus de carotte , sirop de glucose")
+                    .replace("une garniturecomposée de: viande bovine française de race charolaise 53%","une garniture composée de: viande bovine française de race charolaise 53%")
+                    .replace("émulsifiant: e471. colorant: bêtacarotène.","émulsifiant: e471, colorant: bêtacarotène.")
+                    .replace("amidon transformé de pomme d terre. salade 9%.","amidon transformé de pomme d terre, salade 9%.")
+                    .replace("farine de blé malté, antioxydant: e316. œuf.","farine de blé malté, antioxydant: e316, œuf")
+                    .replace("agent de traitement de la farine: e300. œuf.","agent de traitement de la farine: e300, œuf")
+                    .replace("pain de mie au blé malté 40%— poulet rôti 19%— sauce caesar 13%   mayonnaise allégée en matières grasses,","pain de mie au blé malté 40%, poulet rôti 19%, sauce caesar 13%   mayonnaise allégée en matières grasses,")
+                    .replace(", ognon, boyau naturel de mouton",", oignon, boyau naturel de mouton")
+                    .replace("boyau naturel de mouton.","boyau naturel de mouton")
+                    .replace("colorant e160c","colorant: e160c")
+                    .replace("sucre. boyau naturel de mouton","sucre, boyau naturel de mouton")
+                    .replace("arômes. boyau naturel de mouton","arômes, boyau naturel de mouton")
+                    .replace("viande de porc origine union européenne (81 eau, sel, sirop de glucose, dextrose, arôme naturel, épices et plantes aromatiques, acidifiant: e331. conservateur: e250.","viande de porc origine union européenne , eau, sel, sirop de glucose, dextrose, arôme naturel, épices et plantes aromatiques, acidifiant: e331, conservateur: e250.")
+                    .replace("fumée liquide émulsifiants: e450,e451. exhausteur de goût: e621. antioxydants: e300 , e301 , e316. colorant: e120. conservateurs: e250,e326,e262. ferments.","fumée liquide émulsifiants: e450 e451, exhausteur de goût: e621, antioxydants: e300 e301 e316 colorant: e120, conservateurs: e250 e326 e262, ferments.")
+                    .replace("antioxydant: ascorbate de sodium (e300. enveloppe naturelle de mouton.","antioxydant: ascorbate de sodium e300, enveloppe naturelle de mouton.")
+                    .replace("sirop de glucose, stabilisants: e451. e450 arômes, antioxydants: e315. e316 conservateur: e250. boyau naturel de mouton.","sirop de glucose, stabilisants: e451 e450, arômes, antioxydants: e315 e316, conservateur: e250, boyau naturel de mouton.")
+                    .replace("conservateur: nitrite de sodium. fumage au bois de hêtre.","conservateur: nitrite de sodium, fumage au bois de hêtre")
+                    .replace("colorant e120. boyau nature de mouton.","colorant e120, boyau nature de mouton")
+                    .replace("stabilisants: di,, tri, et polyphosphates, ","stabilisants: diphosphate triphosphate et polyphosphates, ")
+                    .replace("conservateur: e262. antioxydants: e316,e331.","conservateur: e262. , antioxydants: e316 e331.")
+                    .replace("conservateur: nitrite de sodium. boyau naturel de porc.","conservateur: nitrite de sodium, boyau naturel de porc.")
+                    .replace("ferments. boyau naturel de porc.","ferments, boyau naturel de porc.")
+                    .replace("exhausteur de goût: monoglutamate de sodium. boyau naturel de porc.","exhausteur de goût: monoglutamate de sodium, boyau naturel de porc.")
+
+                    /*10377*/
+                    .replace("exhausteur de goût: e621. arômes naturel, acidifiant: e575 , colorant: e120 , antioxydant: e316 , conservateur: e250. enveloppe.","exhausteur de goût: e621. arômes naturel, acidifiant: e575 , colorant: e120 , antioxydant: e316 , conservateur: e250. , enveloppe.")
                     ;
             myWriter.write(replaceEnderscoreIngredients+"\n");
             List<String> blockIngredientj = new ArrayList<String>(Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
