@@ -215,6 +215,7 @@ public class IntegrationOpenFoodFacts {
                     /*=============Victoria 1-3_350======================================*/
                     .replace("vitamines: b3. b5. b12. b6. b2. b1. b9. b8:","")
                     .replace("agent de traitement de la farine: l,cystéine.","agent de traitement de la farine: lecystéine.")
+                    .replace("pre,cooked wholegrain basmati rice","precooked wholegrain basmati rice")
 
 
                     /*=============Dimitri 3_351-6_700=====================================*/
