@@ -27,7 +27,6 @@ public class IntegrationOpenFoodFacts {
 
 
 
-
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
 
         Iterator<String> fileIte = lines.iterator();
