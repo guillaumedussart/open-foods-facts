@@ -162,23 +162,4 @@ public class AppService {
         }
     }
 
-    public void insertCategories(String category) {
-        HashSet<String> deleteSameCategories = new HashSet<>();
-        if (deleteSameCategories.add(category)) {
-            em.getTransaction().begin();
-            Category categories = new Category(category);
-            em.persist(categories);
-            em.getTransaction().commit();
-        }
-    }
-
-    public void insertMarks(String mark) {
-        HashSet<String> deleteSameMarks = new HashSet<>();
-        if (deleteSameMarks.add(mark)) {
-            em.getTransaction().begin();
-            Mark marks = new Mark(mark);
-            em.persist(marks);
-            em.getTransaction().commit();
-        }
-    }
 }

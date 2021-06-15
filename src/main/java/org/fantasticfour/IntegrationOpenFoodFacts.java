@@ -36,6 +36,8 @@ public class IntegrationOpenFoodFacts {
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
 
         HashSet<String> deleteSameIngredients = new HashSet<>();
+        HashSet<String> deleteSameCategories = new HashSet<>();
+        HashSet<String> deleteSameMarks = new HashSet<>();
 
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
@@ -48,10 +50,10 @@ public class IntegrationOpenFoodFacts {
                     .replace("Calin+ Fruits Pêche, Abricot, Fraise, Framboise)", "Calin+ Fruits Pêche, Abricot, Fraise, Framboise")
                     .split("\\|");
 
+            String category = part[0];
+            String mark = part[1];
 
             appService.initVariable(part);
-            String category = appService.category;
-            String mark = appService.mark;
             String name = appService.name;
             String nutriGrade = appService.nutriGrade;
             String ingredients = appService.ingredients;
@@ -79,15 +81,22 @@ public class IntegrationOpenFoodFacts {
             double beta_carotene = appService.beta_carotene;
             boolean palm_oil = appService.palm_oil;
 
-            //appService.insertCategories(category);
-            //appService.insertMarks(mark);
+            if (deleteSameCategories.add(category)) {
+                em.getTransaction().begin();
+                Category categories = new Category(category);
+                em.persist(categories);
+                em.getTransaction().commit();
+            }
 
+            if (deleteSameMarks.add(mark)) {
+                em.getTransaction().begin();
+                Mark marks = new Mark(mark);
+                em.persist(marks);
+                em.getTransaction().commit();
+            }
             System.out.println("nomProduit----------------------------------");
             System.out.println(i + " " + name);
             System.out.println("------------------------------------------------");
-
-
-            Product products = new Product(name, nutriGrade, energie, fat, sugar, fiber, proteins, salt, calcium, magnesium, iron, fer, beta_carotene, palm_oil);
 
 
             String replaceEnderscoreIngredients = ingredients.toLowerCase(Locale.ROOT)
@@ -185,55 +194,120 @@ public class IntegrationOpenFoodFacts {
                     .replace("crème de lait pasteurisée, sel 2% , ferments lactiques.  biologique. les informations en gras sont destinées aux personnes intolérantes ou allergiques.", "crème de lait pasteurisée, sel 2% , ferments lactiques.  biologique.")
                     .replace("beurrepasteurisé doux. 1: ingrédient issu de l'agriculture biologique.", "beurre pasteurisé doux. ingrédient issu de l'agriculture biologique.")
                     .replace("beurre", "beurre.")
+                    .replace("huiles et graisses végétales biologiques non hydrogénées1. eau, sel de mer 1.4%, émulsifiants: lécithine de soja biologique, arômes naturels, jus de citron concentré biologique. ingrédients d'origine végétale 1 ces huiles et graisses végétales donnent à ce produit primevère un profil riche en acides gras insaturés oméga 3.6.9formulé avec l'aide du service nutrition de l'institut pasteur de lille.",
+                            "huiles et graisses végétales biologiques non hydrogénées., eau, sel de mer 1.4%, émulsifiants: lécithine de soja biologique, arômes naturels, jus de citron concentré biologique. ingrédients d'origine végétale")
                     /*439*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     /*=============Dimitri 3_351-6_700=====================================*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     /*=============Remi 6_701-10_050========================================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -453,22 +527,26 @@ public class IntegrationOpenFoodFacts {
                             " graines de sésame, maltodextrine de maïs, algues séchées, piment en poudre, colorants: e140. e100. e160c e162. e150a.")
                     .replace("sel marin. dorure: œufs.", "sel marin., dorure: œufs.");
             myWriter.write(replaceEnderscoreIngredients + "\n");
+
+            em.getTransaction().begin();
+
+            Product products = new Product(name, nutriGrade, energie, fat, sugar, fiber, proteins, salt, calcium, magnesium, iron, fer, beta_carotene, palm_oil);
+
             List<String> blockIngredientj = new ArrayList<String>(Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
             for (int j = 0; j < blockIngredientj.size(); j++) {
 
                 if (deleteSameIngredients.add(blockIngredientj.get(j).trim())) {
                     System.out.println(blockIngredientj.get(j));
 
-                    /*em.getTransaction().begin();
-                    Ingredient ingredientsDB = new Ingredient(blockIngredientj.get(j));
-                    em.persist(ingredientsDB);
-                    em.getTransaction().commit();*/
+                    /*Ingredient ingredientsDB = new Ingredient(blockIngredientj.get(j));
+                    em.persist(ingredientsDB);*/
+
                 }
-                Ingredient ingredientsAddToProduct = new Ingredient(blockIngredientj.get(j));
-                Set<Ingredient> ingredientsForProduct = new HashSet<>();
-                ingredientsForProduct.add(ingredientsAddToProduct);
-                products.setIngredients(ingredientsForProduct);
+
             }
+
+            em.getTransaction().commit();
+
             /*for (int j = 1; j < blockIngredientj.size(); j++) {
                 List<String> blockIngredientk = new ArrayList<String>(Arrays.asList(blockIngredientj.get(j).trim().split(";")));
 
