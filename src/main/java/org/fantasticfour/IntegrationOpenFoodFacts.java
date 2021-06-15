@@ -25,10 +25,9 @@ public class IntegrationOpenFoodFacts {
     public static void main(String[] args) throws IOException {
 
 
-        Path paths = Paths.get("C:/Users/Poyatos Rémi/Desktop/projet/open-food-facts.csv");
 
-        File newFile = new File("C:\\Users\\Poyatos Rémi\\Desktop\\projet\\traitement-fichier-jpa-off\\src\\main\\resources\\files\\recensement-copy.csv");
-        FileWriter myWriter = new FileWriter("C:\\Users\\Poyatos Rémi\\Desktop\\projet\\traitement-fichier-jpa-off\\src\\main\\resources\\files\\recensement-copy.csv");
+
+
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
 
         Iterator<String> fileIte = lines.iterator();
@@ -269,7 +268,7 @@ public class IntegrationOpenFoodFacts {
                     .replace("céréales 55% flocons d’avoine, flocons de blé, farine de blé, céréales extrudées,", "céréales 55% ,flocons d’avoine, flocons de blé, farine de blé, céréales extrudées,")
                     .replace("sel, farine d'orge maltée, vitamines: c, b3 ou pp, b6. b2. b1. b9. b21.", "sel, farine d'orge maltée, ")
                     .replace("son de riz, sucre de canne, sel //  ingrédients issus de l'agriculture biologique", "son de riz, sucre de canne, sel .")
-                    
+                    .replace("correcteur d'acidité: phosphate de sodium, arôme, vitamines d, pp, b5. b6. b2. b1. b9 et minéraux", "correcteur d'acidité: phosphate de sodium, arôme.")
                     
                     /*=============Moa reste==================================================*/
                     .replace(" protéines de lait'","protéines de lait")
