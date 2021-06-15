@@ -21,12 +21,17 @@ import java.util.regex.Pattern;
 
 public class IntegrationOpenFoodFacts {
 
-
+    private static String PATH_FILE;
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
     private static EntityManager em = emf.createEntityManager();
     private static AppService appService = AppService.getSingle();
 
+    static {
+        ResourceBundle bundle = ResourceBundle.getBundle("db");
+        PATH_FILE = bundle.getString("path.file");
 
+
+    }
     public static void main(String[] args) throws IOException {
 
 
