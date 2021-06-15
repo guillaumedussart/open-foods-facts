@@ -2,14 +2,12 @@ package org.fantasticfour;
 
 import org.fantasticfour.bll.AppService;
 import org.fantasticfour.bo.Category;
-import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.bo.Mark;
 import org.fantasticfour.bo.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -17,7 +15,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class IntegrationOpenFoodFacts {
 
@@ -26,18 +23,14 @@ public class IntegrationOpenFoodFacts {
     private static EntityManager em = emf.createEntityManager();
     private static AppService appService = AppService.getSingle();
 
-    static {
-        ResourceBundle bundle = ResourceBundle.getBundle("db");
-        PATH_FILE = bundle.getString("path.file");
 
-
-    }
     public static void main(String[] args) throws IOException {
 
+        ResourceBundle bundle = ResourceBundle.getBundle("db");
+        PATH_FILE = bundle.getString("path.file");
+        Path paths = Paths.get(PATH_FILE+"src/main/resources/open-food-facts.csv");
 
-        Path paths = Paths.get("/workspace/www/traitement-fichier-jpa-off/src/main/resources/open-food-facts.csv");
-
-        FileWriter myWriter = new FileWriter("/workspace/www/traitement-fichier-jpa-off/src/main/resources/files/recensement-copy.csv");
+        FileWriter myWriter = new FileWriter(PATH_FILE+"src/main/resources/files/recensement-copy.csv");
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
 
         HashSet<String> deleteSameIngredients = new HashSet<>();
