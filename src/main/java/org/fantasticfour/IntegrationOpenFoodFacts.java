@@ -1,5 +1,6 @@
 package org.fantasticfour;
 
+import org.fantasticfour.bll.AppService;
 import org.fantasticfour.bo.Category;
 import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.bo.Mark;
@@ -19,8 +20,12 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class IntegrationOpenFoodFacts {
+
+
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
     private static EntityManager em = emf.createEntityManager();
+    private static AppService appService = AppService.getSingle();
+
 
     public static void main(String[] args) throws IOException {
 
@@ -30,13 +35,8 @@ public class IntegrationOpenFoodFacts {
         FileWriter myWriter = new FileWriter("/workspace/www/traitement-fichier-jpa-off/src/main/resources/files/recensement-copy.csv");
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
 
-        Iterator<String> fileIte = lines.iterator();
-        HashSet<String> deleteSameCategories = new HashSet<>();
-        HashSet<String> deleteSameMarks = new HashSet<>();
         HashSet<String> deleteSameIngredients = new HashSet<>();
-        HashSet<String> deleteSameIngredients2 = new HashSet<>();
 
-        List<Category> allCategories = new ArrayList<>();
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
             String[] part = line.replace("|’", "l'")
@@ -48,120 +48,39 @@ public class IntegrationOpenFoodFacts {
                     .replace("Calin+ Fruits Pêche, Abricot, Fraise, Framboise)", "Calin+ Fruits Pêche, Abricot, Fraise, Framboise")
                     .split("\\|");
 
-            String categorie = part[0];
-            String mark = part[1];
-            String name = part[2];
-            String nutriGrade = part[3];
-            String ingredients = part[4];
 
-            double energie = 0;
-            if (!part[5].isEmpty()) {
-                energie = Double.parseDouble(part[5]);
-            }
-            double fat = 0;
-            if (!part[6].isEmpty()) {
-                fat = Double.parseDouble(part[6]);
-            }
+            appService.initVariable(part);
+            String category = appService.category;
+            String mark = appService.mark;
+            String name = appService.name;
+            String nutriGrade = appService.nutriGrade;
+            String ingredients = appService.ingredients;
+            double energie = appService.energie;
+            double fat = appService.fat;
+            double sugar = appService.sugar;
+            double fiber = appService.fiber;
+            double proteins = appService.proteins;
+            double salt = appService.salt;
+            double vitA = appService.vitA;
+            double vitD = appService.vitD;
+            double vitE = appService.vitE;
+            double vitK = appService.vitK;
+            double vitC = appService.vitC;
+            double vitB1 = appService.vitB1;
+            double vitB2 = appService.vitB2;
+            double vitPP = appService.vitPP;
+            double vitB6 = appService.vitB6;
+            double vitB9 = appService.vitB9;
+            double vitB12 = appService.vitB12;
+            double calcium = appService.calcium;
+            double magnesium = appService.magnesium;
+            double iron = appService.iron;
+            double fer = appService.fer;
+            double beta_carotene = appService.beta_carotene;
+            boolean palm_oil = appService.palm_oil;
 
-            double sugar = 0;
-            if (!part[7].isEmpty()) {
-                sugar = Double.parseDouble(part[7]);
-            }
-
-
-            double fiber = 0;
-            if (!part[8].isEmpty()) {
-                fiber = Double.parseDouble(part[8]);
-            }
-            double proteins = 0;
-            if (!part[9].isEmpty()) {
-                proteins = Double.parseDouble(part[9]);
-            }
-            double salt = 0;
-            if (!part[10].isEmpty()) {
-                salt = Double.parseDouble(part[10]);
-            }
-            double vitA = 0;
-            if (!part[11].isEmpty()) {
-                vitA = Double.parseDouble(part[11]);
-            }
-            double vitD = 0;
-            if (!part[12].isEmpty()) {
-                vitD = Double.parseDouble(part[12]);
-            }
-            double vitE = 0;
-            if (!part[13].isEmpty()) {
-                vitE = Double.parseDouble(part[13]);
-            }
-            double vitK = 0;
-            if (!part[14].isEmpty()) {
-                vitK = Double.parseDouble(part[14]);
-            }
-            double vitC = 0;
-            if (!part[15].isEmpty()) {
-                vitC = Double.parseDouble(part[15]);
-            }
-            double vitB1 = 0;
-            if (!part[16].isEmpty()) {
-                vitB1 = Double.parseDouble(part[16]);
-            }
-            double vitB2 = 0;
-            if (!part[17].isEmpty()) {
-                vitB2 = Double.parseDouble(part[17]);
-            }
-            double vitPP = 0;
-            if (!part[18].isEmpty()) {
-                vitPP = Double.parseDouble(part[18]);
-            }
-            double vitB6 = 0;
-            if (!part[19].isEmpty()) {
-                vitB6 = Double.parseDouble(part[19]);
-            }
-            double vitB9 = 0;
-            if (!part[20].isEmpty()) {
-                vitB9 = Double.parseDouble(part[20]);
-            }
-            double vitB12 = 0;
-            if (!part[21].isEmpty()) {
-                vitB12 = Double.parseDouble(part[21]);
-            }
-            double calcium = 0;
-            if (!part[22].isEmpty()) {
-                calcium = Double.parseDouble(part[22]);
-            }
-            double magnesium = 0;
-            if (!part[23].isEmpty()) {
-                magnesium = Double.parseDouble(part[23]);
-            }
-            double iron = 0;
-            if (!part[24].isEmpty()) {
-                iron = Double.parseDouble(part[24]);
-            }
-            double fer = 0;
-            if (!part[25].isEmpty()) {
-                fer = Double.parseDouble(part[25]);
-            }
-            double beta_carotene = 0;
-            if (!part[26].isEmpty()) {
-                beta_carotene = Double.parseDouble(part[26]);
-            }
-            boolean palm_oil = false;
-            if (!part[27].isEmpty()) {
-                palm_oil = Boolean.parseBoolean(part[27]);
-            }
-            /*if (deleteSameCategories.add(categorie)) {
-                em.getTransaction().begin();
-                Category categories = new Category(categorie);
-                em.persist(categories);
-                em.getTransaction().commit();
-            }
-
-            if (deleteSameMarks.add(mark)) {
-                em.getTransaction().begin();
-                Mark marks = new Mark(mark);
-                em.persist(marks);
-                em.getTransaction().commit();
-            }*/
+            //appService.insertCategories(category);
+            //appService.insertMarks(mark);
 
             System.out.println("nomProduit----------------------------------");
             System.out.println(i + " " + name);
@@ -250,22 +169,22 @@ public class IntegrationOpenFoodFacts {
                     .replace("agent de traitement de la farine l,cystéine.", "agent de traitement de la farine lecystéine.")
                     .replace("chocolat au lait 58%, riz 42% ingrédients issus de l'agriculture biologique.", "chocolat au lait 58%, riz 42% ,ingrédients issus de l'agriculture biologique.")
                     .replace("chocolat noir 57%, riz 48%. ingrédients issus de l'agriculture biologique.", "chocolat noir 57%, riz 48%. , ingrédients issus de l'agriculture biologique.")
-                    .replace("conservateur: e202. e220 anhydride sulfureux, e330. e120. e150a, e133. e127.","conservateur: e202. e220 anhydride sulfureux e330. e120. e150a. e133. e127.")
-                    .replace("correcteur d'acidité e330. conservateur e220 anhydride sulfureux.","correcteur d'acidité e330, conservateur e220 anhydride sulfureux.")
-                    .replace("agent de traitement de la farine: l,cystéine , colorant: bêta,carotène.","agent de traitement de la farine: lecystéine , colorant: bêtacarotène.")
-                    .replace("herbes de provence. ingrédients agricoles issus de l'agriculture biologique.","herbes de provence., ingrédients agricoles issus de l'agriculture biologique.")
-                    .replace("préparation de protéines de soja et de ble: 44%, fromage fondu: 28%, panure: 28%. huile de tournesol","préparation de protéines de soja et de ble: 44%, fromage fondu: 28%, panure: 28%. , huile de tournesol")
-                    .replace("carmins, arôme naturel. contient des sulfites et anhydride sulfureux.","carmins, arôme naturel., contient des sulfites et anhydride sulfureux.")
-                    .replace("eau. fèves de soja, sel de nigari. sans conservateurproduits issus de l’agriculture biologique","eau., fèves de soja, sel de nigari. sans conservateur ,produits issus de l’agriculture biologique")
-                    .replace("farine de blé t80, beurre, eau, sucre de canne blond, sel de guérande, jus de citron concentré. ingrédients issus de l'agriculture biologique.","farine de blé t80, beurre, eau, sucre de canne blond, sel de guérande, jus de citron concentré., ingrédients issus de l'agriculture biologique.")
-      .replace("jus de soja 89%, huile de tournesol, émulsifiant: lécithine de soja , épaississants: gomme xanthane, carraghénanes. ingrédients issus de l'agriculture biologique.",
-              "jus de soja 89%, huile de tournesol, émulsifiant: lécithine de soja , épaississants: gomme xanthane, carraghénanes. , ingrédients issus de l'agriculture biologique.")
-.replace("fabriqué en espagne dans un atelier qui utilise fruits à coque, moutarde, ceufs, produits laitiers, gluten, lupin et celeri","fabriqué en espagne dans un atelier qui utilise fruits à coque, moutarde, ceufs, produits laitiers, gluten, lupin , celeri")
-.replace("tofu 93%, sel, épices.  ingrédients d'origine agricole obtenus selon les règles de production biologique.","tofu 93%, sel, épices. , ingrédients d'origine agricole obtenus selon les règles de production biologique.")
-                    .replace("correcteur d'acidité: concentré lactique, conservateur: sorbate de potassium, arôme, colorant: béta,carotène, vitamine e.","correcteur d'acidité: concentré lactique, conservateur: sorbate de potassium, arôme, colorant: bétacarotène")
-                    .replace("crème de lait pasteurisée, sel 2% , ferments lactiques.  biologique. les informations en gras sont destinées aux personnes intolérantes ou allergiques.","crème de lait pasteurisée, sel 2% , ferments lactiques.  biologique.")
-.replace("beurrepasteurisé doux. 1: ingrédient issu de l'agriculture biologique.","beurre pasteurisé doux. ingrédient issu de l'agriculture biologique.")
-                    .replace("beurre","beurre.")
+                    .replace("conservateur: e202. e220 anhydride sulfureux, e330. e120. e150a, e133. e127.", "conservateur: e202. e220 anhydride sulfureux e330. e120. e150a. e133. e127.")
+                    .replace("correcteur d'acidité e330. conservateur e220 anhydride sulfureux.", "correcteur d'acidité e330, conservateur e220 anhydride sulfureux.")
+                    .replace("agent de traitement de la farine: l,cystéine , colorant: bêta,carotène.", "agent de traitement de la farine: lecystéine , colorant: bêtacarotène.")
+                    .replace("herbes de provence. ingrédients agricoles issus de l'agriculture biologique.", "herbes de provence., ingrédients agricoles issus de l'agriculture biologique.")
+                    .replace("préparation de protéines de soja et de ble: 44%, fromage fondu: 28%, panure: 28%. huile de tournesol", "préparation de protéines de soja et de ble: 44%, fromage fondu: 28%, panure: 28%. , huile de tournesol")
+                    .replace("carmins, arôme naturel. contient des sulfites et anhydride sulfureux.", "carmins, arôme naturel., contient des sulfites et anhydride sulfureux.")
+                    .replace("eau. fèves de soja, sel de nigari. sans conservateurproduits issus de l’agriculture biologique", "eau., fèves de soja, sel de nigari. sans conservateur ,produits issus de l’agriculture biologique")
+                    .replace("farine de blé t80, beurre, eau, sucre de canne blond, sel de guérande, jus de citron concentré. ingrédients issus de l'agriculture biologique.", "farine de blé t80, beurre, eau, sucre de canne blond, sel de guérande, jus de citron concentré., ingrédients issus de l'agriculture biologique.")
+                    .replace("jus de soja 89%, huile de tournesol, émulsifiant: lécithine de soja , épaississants: gomme xanthane, carraghénanes. ingrédients issus de l'agriculture biologique.",
+                            "jus de soja 89%, huile de tournesol, émulsifiant: lécithine de soja , épaississants: gomme xanthane, carraghénanes. , ingrédients issus de l'agriculture biologique.")
+                    .replace("fabriqué en espagne dans un atelier qui utilise fruits à coque, moutarde, ceufs, produits laitiers, gluten, lupin et celeri", "fabriqué en espagne dans un atelier qui utilise fruits à coque, moutarde, ceufs, produits laitiers, gluten, lupin , celeri")
+                    .replace("tofu 93%, sel, épices.  ingrédients d'origine agricole obtenus selon les règles de production biologique.", "tofu 93%, sel, épices. , ingrédients d'origine agricole obtenus selon les règles de production biologique.")
+                    .replace("correcteur d'acidité: concentré lactique, conservateur: sorbate de potassium, arôme, colorant: béta,carotène, vitamine e.", "correcteur d'acidité: concentré lactique, conservateur: sorbate de potassium, arôme, colorant: bétacarotène")
+                    .replace("crème de lait pasteurisée, sel 2% , ferments lactiques.  biologique. les informations en gras sont destinées aux personnes intolérantes ou allergiques.", "crème de lait pasteurisée, sel 2% , ferments lactiques.  biologique.")
+                    .replace("beurrepasteurisé doux. 1: ingrédient issu de l'agriculture biologique.", "beurre pasteurisé doux. ingrédient issu de l'agriculture biologique.")
+                    .replace("beurre", "beurre.")
                     /*439*/
 
                     /*=============Dimitri 3_351-6_700=====================================*/
@@ -385,24 +304,7 @@ public class IntegrationOpenFoodFacts {
             }*/
         }
         myWriter.close();
-       /* while (fileIte.hasNext()) {
-            fileIte.next();
-            String[] getElem = fileIte.next().split("\\|");
-            String category = getElem[0];
-            String replaceEnderscore = category.replace("_","");
-            //System.out.println(replaceEnderscore);
-            if (deleteSame.add(category)) {
-                System.out.println(category);
-            }*/
-            /*List<String> blockI = Arrays.asList(replaceEnderscore.split(","));
-            System.out.println("---------------------------------");
-            System.out.println(getIngredient[0]);
-            System.out.println(getIngredient[1]);
-            System.out.println(getIngredient[2]);
-            System.out.println("________________________________");
-            for (int i =0;i<blockI.size();i++){
-                System.out.println(blockI.get(i));
-            }}*/
+
 
         emf.close();
         em.close();
