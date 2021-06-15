@@ -25,10 +25,7 @@ public class IntegrationOpenFoodFacts {
     public static void main(String[] args) throws IOException {
 
 
-        Path paths = Paths.get("C:\\Users\\Victoria\\Documents\\Diginamic\\projetGroupe\\traitement-fichier-jpa-off\\src\\main\\resources\\open-food-facts.csv");
 
-        File newFile = new File("C:\\Users\\Victoria\\Documents\\Diginamic\\projetGroupe\\traitement-fichier-jpa-off\\src\\main\\resources\\files\\recensement-copy.csv");
-        FileWriter myWriter = new FileWriter("C:\\Users\\Victoria\\Documents\\Diginamic\\projetGroupe\\traitement-fichier-jpa-off\\src\\main\\resources\\files\\recensement-copy.csv");
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
 
         Iterator<String> fileIte = lines.iterator();
