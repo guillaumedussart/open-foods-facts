@@ -31,6 +31,7 @@ public class IntegrationOpenFoodFacts {
         Path paths = Paths.get(PATH_FILE+"src/main/resources/open-food-facts.csv");
 
         FileWriter myWriter = new FileWriter(PATH_FILE+"src/main/resources/files/recensement-copy.csv");
+
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
 
         HashSet<String> deleteSameIngredients = new HashSet<>();
@@ -191,7 +192,7 @@ public class IntegrationOpenFoodFacts {
                     .replace("correcteur d'acidité: concentré lactique, conservateur: sorbate de potassium, arôme, colorant: béta,carotène, vitamine e.", "correcteur d'acidité: concentré lactique, conservateur: sorbate de potassium, arôme, colorant: bétacarotène")
                     .replace("crème de lait pasteurisée, sel 2% , ferments lactiques.  biologique. les informations en gras sont destinées aux personnes intolérantes ou allergiques.", "crème de lait pasteurisée, sel 2% , ferments lactiques.  biologique.")
                     .replace("beurrepasteurisé doux. 1: ingrédient issu de l'agriculture biologique.", "beurre pasteurisé doux. ingrédient issu de l'agriculture biologique.")
-                    .replace("beurre", "beurre.")
+                    .replace("beurre.", "beurre ")
                     .replace("huiles et graisses végétales biologiques non hydrogénées1. eau, sel de mer 1.4%, émulsifiants: lécithine de soja biologique, arômes naturels, jus de citron concentré biologique. ingrédients d'origine végétale 1 ces huiles et graisses végétales donnent à ce produit primevère un profil riche en acides gras insaturés oméga 3.6.9formulé avec l'aide du service nutrition de l'institut pasteur de lille.",
                             "huiles et graisses végétales biologiques non hydrogénées., eau, sel de mer 1.4%, émulsifiants: lécithine de soja biologique, arômes naturels, jus de citron concentré biologique. ingrédients d'origine végétale")
                     /*439*/
@@ -460,6 +461,115 @@ public class IntegrationOpenFoodFacts {
 
 
 
+
+                    .replace("maïs 70%, sucre 28 %, extrait de malt d'orge, sel.", "maïs 70%, sucre 28 %, extrait de malt d'orge, sel,")
+                    .replace("sirop de malt d'orge bio, arôme naturel d'abricot avec autres arômes naturels,  sel de mer, émulsiﬁant: lécithines de tournesol", "sirop de malt d'orge bio, arôme naturel d'abricot avec autres arômes naturels,  sel de mer, émulsiﬁant: lécithines de tournesol.")
+                    .replace(" préparation à base d'huile végétale, sel, vitamines: niacine, e, b6.", " préparation à base d'huile végétale, sel, vitamines: niacine, e, b6,")
+                    .replace("colorant: caroténoïdes, antiagglomérant carbonate de calcium, émulsifiant lécithines de tournesol, arôme, antioxydant tocophérols.", "colorant: caroténoïdes, antiagglomérant carbonate de calcium, émulsifiant lécithines de tournesol, arôme, antioxydant tocophérols,")
+                    .replace("préparation à base d'huile végétale, sel, vitamines: niacine, e, b6, riboflavine, thiamine, acide folique, b12. fer.","préparation à base d'huile végétale, sel, vitamines: niacine, e, b6, riboflavine, thiamine, acide folique, b12, fer.")
+                    .replace("émulsifiant: mono, et diglycérides d'acides gras, vitamines c, niacine, acide pantothénique, b6. riboflavine", "émulsifiant: mono, et diglycérides d'acides gras, vitamines c, niacine, acide pantothénique, b6, riboflavine")
+                    .replace("graines de lin brin 11%, fruits secs, sucre de coco 6.3%, huile de coco 6.3%, noix de coco 2.1%, sel, poudre de vanille.:", "graines de lin brin 11%, fruits secs, sucre de coco 6.3%, huile de coco 6.3%, noix de coco 2.1%, sel, poudre de vanille:")
+                    .replace("farine de blé sucre: huile de palme, lait en poudre écrémé, poudres à lever: e503. e500. e450. sel,", "farine de blé sucre: huile de palme, lait en poudre écrémé, poudres à lever: e503, e500, e450, sel,")
+                    .replace("vitamines: c, niacine, b6. riboflavine, thiamine, acide folique, b12.", "")
+                    .replace("flocons d'épeautre 45%, flocons d'avoine, abricots 8%, graines de tournesol, pruneaux 7%, pommes 6%, amandes 5%, noix de pécan.", "flocons d'épeautre 45%, flocons d'avoine, abricots 8%, graines de tournesol, pruneaux 7%, pommes 6%, amandes 5%, noix de pécan,")
+                    .replace("flocons d'avoine complet 35%, sucre, flocons de blé complet“ 13%, farine de blé 11.9%, chocolat noir 11%, huile de tournesol, farine de riz, noix de coco en poudre, cacao en poudre 1.6%, miel, sel, extrait de malt d'orge, émulsifiant: lécithines de tournesol, antioxydant: extrait riche en tocophérol", "flocons d'avoine complet 35%, sucre, flocons de blé complet“ 13%, farine de blé 11.9%, chocolat noir 11%, huile de tournesol, farine de riz, noix de coco en poudre, cacao en poudre 1.6%, miel, sel, extrait de malt d'orge, émulsifiant: lécithines de tournesol, antioxydant: extrait riche en tocophérol.")
+                    .replace("céréales complètes 67.4%, caramel 20.4% crème caramel au beurre salé 11.6%, caramel 8.8%, huile de tournesol, sucre de canne, sel de mer // ingrédients issus de l’agriculture biologique", "céréales complètes 67.4%, caramel 20.4% crème caramel au beurre salé 11.6%, caramel 8.8%, huile de tournesol, sucre de canne, sel de mer // ingrédients issus de l’agriculture biologique.")
+                    .replace("superfruits 9.3 % cranberries 4.3 %, jus concentré de grenade 3.8 %, cassis lyophilisés 0.6%, myrtilles lyophilisées 0.6 %", "superfruits 9.3 % cranberries 4.3 %, jus concentré de grenade 3.8 %, cassis lyophilisés 0.6%, myrtilles lyophilisées 0.6 %.")
+                    .replace("flocons d'avoine 54%, sucre de canne complet, huile de tournesol, sirop de riz, billettes de riz, amandes 4%, tapioca", "flocons d'avoine 54%, sucre de canne complet, huile de tournesol, sirop de riz, billettes de riz, amandes 4%, tapioca.")
+                    .replace("sarrasin 99%, sel", "sarrasin 99%, sel.")
+                    .replace(" noisettes toastées, pommes séchées 1%, noix de coco séchées 1%, figues séchées", " noisettes toastées, pommes séchées 1%, noix de coco séchées 1%, figues séchées.")
+                    .replace("millet", "millet.")
+                    .replace("noix de coco toastée en lamelles 4%. produits issus de l'agriculture biologique", "noix de coco toastée en lamelles 4%.")
+                    .replace("flocons d'avoine complets", "flocons d'avoine complets.")
+                    .replace("flocons de blé, flocons d'orge· pépites de chocolat noir 10%,","flocons de blé, flocons d'orge, pépites de chocolat noir 10%,")
+                    .replace("ingrédients issus de l'agriculture biologique.", "")
+                    .replace("céréales 65.2%, sucre de canne, huile de tournesol, noix de coco, sirop de riz. ingrédients issus de l’agriculture biologique.", "céréales 65.2%, sucre de canne, huile de tournesol, noix de coco, sirop de riz,")
+                    .replace("sucre de canne, huile de tournesol, morceaux de chocolat noir 5.1 %, sirop de riz, cacao maigre en poudre. ingrédients issus de l’agriculture biologique.", "sucre de canne, huile de tournesol, morceaux de chocolat noir 5.1 %, sirop de riz, cacao maigre en poudre.")
+                    .replace(" chocolat 3.9 % (sucre de canne sirop de malt d'orge , sucre de canne, sirop de blé, pâte de cacao , beurre de cacao,", " chocolat 3.9 % , sucre de canne , sirop de malt d'orge , sucre de canne, sirop de blé, pâte de cacao , beurre de cacao,")
+                    .replace("sarrasin, datte, noisette 5%, éclats de fève de cacao cru 3.9%, poudre de cacao cru 1.6%, poudre de caroube crue, vanille", "sarrasin, datte, noisette 5%, éclats de fève de cacao cru 3.9%, poudre de cacao cru 1.6%, poudre de caroube crue, vanille.")
+                    .replace("fibre de guar, arôme naturel, farine de seigle.  ingrédients d'origine agricole obtenus selon le mode de production biologique.", "fibre de guar, arôme naturel, farine de seigle.")
+                    .replace("blancs d’œufs frais arômes naturels, sel, émulsifiants, sirop de sucre inverti, protéines de lait, arôme, levure désactivée, colorant.", "blancs d’œufs frais ,arômes naturels, sel, émulsifiants, sirop de sucre inverti, protéines de lait, arôme, levure désactivée, colorant.")
+                    .replace("farine de blé 1.7 %, farine de riz, chocolat au lait 0.7 %, farine de soja, miel. ingrédients agricoles issus de l'agriculture biologique.", "farine de blé 1.7 %, farine de riz, chocolat au lait 0.7 %, farine de soja, miel.")
+                    .replace("poudre de cacao maigre 2.2%, sirop d'épeautre.ingrédients agricoles issus de l'agriculture biologique.", "poudre de cacao maigre 2.2%, sirop d'épeautre.")
+                    .replace("sucre de canne, huile de palme non hydrogénée, sirop de riz, billettes de céréales 4.1 %, farine de blé", "sucre de canne, huile de palme non hydrogénée, sirop de riz, billettes de céréales 4.1 %, farine de blé.")
+                    .replace("diglycérides d'acides gras, vitamines: thiamine, riboflavine, b3. acide pantothénique, b6. b8. acide folique, b12. fer.", "diglycérides d'acides gras, fer.")
+                    .replace(", vitamines: niacine, vitamine e, acide pantothénique, vitamine b6. riboflavine, thiamine, acide folique, vitamine b12 diphosphate ferrique", "")
+                    .replace("vitamines: niacine, b6. riboflavine, thiamine, acide folique, b12.", "")
+                    .replace("céréales complètesblé complet, farine de blé complet, fruits secsraisins secs 10.9 %, bananes sucrées aromatisées 8.6 %, noix de coco 3.1 %, pommes 2.3 %, noisettes 2.3 %, sucre, extrait de malt d'orge, sel, vitamines: niacine, acide pantothénique, b6. riboflavine, thiamine, acide folique, biotine, b12. fer, arôme.", "céréales complètes, blé complet, farine de blé complet, fruits secs, raisins secs 10.9 %, bananes sucrées aromatisées 8.6 %, noix de coco 3.1 %, pommes 2.3 %, noisettes 2.3 %, sucre, extrait de malt d'orge, sel, fer, arôme.")
+                    .replace("caramel, sirop de sucre caramélisé , vitamines: bl, b2. b3. b5. b6. b9. b8. bl2", "caramel, sirop de sucre caramélisé ")
+                    .replace("dérivé du lactosérum riche en calcium, vitamines: thiamine, riboflavine, b3. b6. acide folique, b12. e,", "dérivé du lactosérum riche en calcium,")
+                    .replace(", vitamines: niacine, e, b6. riboflavine, thiamine, acide folique, b12 , fer. traces d'arachides, de soja, d'autres fruits à coque et de graines de sésame", "")
+                    .replace("vitamines: niacine, acide pantothénique, riboflavine, b6. thiamine, acide folique, biotine, b12 , poudre à lever: carbonate acide de sodium , protéines de lait , fer. traces d'arachide, soja, fruits à coque et graines de sésame.", " poudre à lever: carbonate acide de sodium , protéines de lait , fer.")
+                    .replace("céréales 61.5 %1% farine complete de segle 1%,pepite de chocolat 3%,sucre, huile de colza,pate de cacao, huiles végétalesdextrose beurre de cacao émulsifiant, noisettes 2.5 %, miel 2%, minérauxpoudre à lever,, sel correcteur d acidité, emulsifiant, aromes.", "céréales 61.5%, farine complete de segle 1%,pepite de chocolat 3%,sucre, huile de colza,pate de cacao, huiles végétales,dextrose ,beurre de cacao, émulsifiant, noisettes 2.5 %, miel 2%, minéraux ,poudre à lever, sel ,correcteur d acidité, emulsifiant, aromes.")
+                    .replace("céréales,   pâte à tartiner à la noisette du lot et garenne et au cacaosucre, noisettes du lot et garonne, poudre de lait, huile de coco, poudre de cacao, huile de colza, émulsiﬁant: lécithine de tournesol, arôme: vanille, chocolat en poudre, son de blé, sucre, sel, émulsifiant: mono, et diglycérldes d’acides gras, vitamines, b6. riboflavine, thiamine, acide folique, b12 et fer. , % dans le produit fini", "céréales, pâte à tartiner à la noisette du lot et garonne et au cacao, sucre, noisettes du lot et garonne, poudre de lait, huile de coco, poudre de cacao, huile de colza, émulsiﬁant: lécithine de tournesol, arôme: vanille, chocolat en poudre, son de blé, sucre, sel, émulsifiant: mono, et diglycérldes d’acides gras, fer.")
+                    .replace("flocons d’avoine, farine de blé— graisse végétale— sucre — pépites de cranberries, sucre, humectant: glycérine, correcteur d'acidité: acide citrique, huile de tournesol, sirop de sucre inverti — billettes de riz soufflées, sucre, gluten de blé, avoine sirop de malt d’orge, sel — poudre à lever: carbonates de sodium , émulsifiant: e472e , sel — arôme — vitamines niacine, riboflavine, b12. d3. b6 thiamine — fer.", "flocons d’avoine, farine de blé, graisse végétale, sucre, pépites de cranberries, sucre, humectant: glycérine, correcteur d'acidité: acide citrique, huile de tournesol, sirop de sucre inverti, billettes de riz soufflées, sucre, gluten de blé, avoine sirop de malt d’orge, sel, poudre à lever: carbonates de sodium , émulsifiant: e472e , sel, arôme, fer.")
+                    .replace("flocons d’avoine, farine de blé— graisse végétale— sucre — sirop de sucre inverti— billettes de riz soufflées, sucre, gluten de blé, avoine sirop de malt d’orge, sel — poudre à lever: carbonates de sodium , émulsifiant: e472e , sel — arôme — vitamines niacine, riboflavine, b12. d3. b6 thiamine — fer.", "flocons d’avoine, farine de blé, graisse végétale, sucre , sirop de sucre inverti, billettes de riz soufflées, sucre, gluten de blé, avoine ,sirop de malt d’orge, sel ,poudre à lever: carbonates de sodium , émulsifiant: e472e , sel ,arôme , fer.")
+                    .replace("vitamines: niacine, e, b6. riboflavine, thiamine, folacine, b12 ,", "")
+                    .replace("céréalesflocons d'avoine, flocons de blé,", "céréales, flocons d'avoine, flocons de blé,")
+                    .replace("céréales 55% flocons d’avoine, flocons de blé, farine de blé, céréales extrudées,", "céréales 55% ,flocons d’avoine, flocons de blé, farine de blé, céréales extrudées,")
+                    .replace("sel, farine d'orge maltée, vitamines: c, b3 ou pp, b6. b2. b1. b9. b21.", "sel, farine d'orge maltée, ")
+                    .replace("son de riz, sucre de canne, sel //  ingrédients issus de l'agriculture biologique", "son de riz, sucre de canne, sel .")
+                    .replace("correcteur d'acidité: phosphate de sodium, arôme, vitamines d, pp, b5. b6. b2. b1. b9 et minéraux", "correcteur d'acidité: phosphate de sodium, arôme.")
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     /*=============Moa reste==================================================*/
                     .replace(" protéines de lait'", "protéines de lait")
                     .replace(" extrat de vanille. 'ingredtent ongtne unjon eurqéenre.", " extrait de vanille")
@@ -523,7 +633,27 @@ public class IntegrationOpenFoodFacts {
                     .replace("boyau naturel de porc. poudre de fleurage: carbonate de calcium. talc.", "boyau naturel de porc., poudre de fleurage: carbonate de calcium., talc.")
                     .replace(" graines de sésame, maltodextrine de maïs, algues séchées, piment en poudre, colorants: e140. e100. e160c, e162. e150a.",
                             " graines de sésame, maltodextrine de maïs, algues séchées, piment en poudre, colorants: e140. e100. e160c e162. e150a.")
-                    .replace("sel marin. dorure: œufs.", "sel marin., dorure: œufs.");
+                    .replace("sel marin. dorure: œufs.", "sel marin., dorure: œufs.")
+                    .replace(" emmental  lait demi,écrémé"," emmental  lait demi-écrémé")
+                    .replace("100 % viande bovine française.","100% viande bovine française.")
+                    .replace("eau, fromage frais 18.2 % lait écrémé,","eau, fromage frais 18.2 %, lait écrémé,")
+                    .replace("mini,cake à l'olive noire: œuf entier liquide pasteurisé,","mini cake à l'olive noire, œuf entier liquide pasteurisé,")
+                    .replace("queue de crevette crue décortiquée 12 % crevetteconservateur: métabisulfite de sodium,","queue de crevette crue décortiquée 12 % , conservateur: métabisulfite de sodium,")
+                    .replace(" laitécrémé en poudre,"," lait écrémé en poudre,")
+                    .replace("moule cuite décoquillée 45 %mytilus edulis sauvage pêchée à la drague en atlantique nord,est, sous,zone mer du nord, noix de saint,jacques crue27.5 % zygochlamys patagonica sauvage pêchée au chalut en atlantique sud,ouest, crevette nordique cuite décortiquée26.8 % pandalus borealis sauvage pêchée au chalut en atlantique nord,est, sous,zones mer de barents, mers de norvège, sel.",
+                            "moule cuite décoquillée 45 % mytilus edulis sauvage pêchée à la drague en atlantique nord est sous zone mer du nord, noix de saint-jacques crue 27.5 % zygochlamys patagonica sauvage pêchée au chalut en atlantique sud-ouest, crevette nordique cuite décortiquée 26.8 % pandalus borealis sauvage pêchée au chalut en atlantique nord-est sous zones mers de norvège, sel.")
+.replace("noix de saint,jacques sans corail.","noix de saint-jacques sans corail.")
+                    .replace("noix de saint,jacques 100%.","noix de saint-jacques 100%.")
+                    .replace("crème fraîche liquide44.2 %, girolle 21.1 %, cèpe 21.1 %, morille 8 %, ail 2.9 %, persil 1.9 %, sel, poivre. 1.9+2.9+8+42.2",
+                            "crème fraîche liquide 44.2 %, girolle 21.1 %, cèpe 21.1 %, morille 8 %, ail 2.9 %, persil 1.9 %, sel, poivre.")
+                    .replace("noix de muscade 0.01% issus d'animaux nés, élevés et abattus en ue","noix de muscade 0.01%")
+                    .replace(" fromage de chèvreaffiné 5 %, "," fromage de chèvre affiné 5 %, ")
+                    .replace(" levain de seigledévitalisé,"," levain de seigle dévitalisé,")
+                    .replace("choux,fleurs en fleurettes 100 %.","choux-fleurs en fleurettes 100 %.")
+                    .replace("59% choux,fleurs, eau, 8.5% crème, jaune d'œuf, 5% emmental, préparation à base de lactosérum,","59% choux,fleurs, eau, 8.5% crème, jaune d'œuf, 5% emmental, préparation à base de lactosérum,")
+                    .replace("mozzareila, olives noircies avec noyau, basilic et origan..  41% pâte: farine de blé, eau, levure, sel.","mozzarella, olives noircies avec noyau, basilic et origan. , farine de blé, eau, levure, sel.")
+
+                    ;
             myWriter.write(replaceEnderscoreIngredients + "\n");
 
             em.getTransaction().begin();
