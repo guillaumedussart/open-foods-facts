@@ -2,3 +2,8 @@
 .project
 .classpath
 src/main/resources/db.properties
+/target/
+
+src/main/resources/db.propertiessrc/main/resources/META-INF/persistence.xml
+pom.xml
+/src/main/resources/
