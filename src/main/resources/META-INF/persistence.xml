@@ -33,9 +33,12 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
             <property name="javax.persistence.jdbc.password" value="9XDyzfHKSW0XJbPbdWTt"/>-->
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/foods"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
+
             <property name="javax.persistence.jdbc.password" value="dc1991di"/>
+
             <property name="javax.persistence.jdbc.driver"
                       value="org.mariadb.jdbc.Driver"/>
+
         </properties>
     </persistence-unit>
 </persistence>
