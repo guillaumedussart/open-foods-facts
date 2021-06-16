@@ -20,6 +20,8 @@ public class Allergen implements Serializable{
 
     public Allergen() {
     }
+    
+    
 
     public Allergen(String nom, Product product) {
         this.nom = nom;
