@@ -23,7 +23,7 @@ public class IntegrationOpenFoodFacts {
     private static EntityManager em = emf.createEntityManager();
 
     public static void main(String[] args) throws IOException {
-       String paths ="C:/Users/dimit/OneDrive/Bureau/projet wika/open-food-facts.csv";
+       String paths ="C:\\Users\\dimit\\OneDrive\\Bureau\\projet wika\\traitement-fichier-jpa-off\\src\\main\\resources\\File\\open-food-facts.csv";
         FileWriter myWriter = new FileWriter(paths + "src/main/resources/files/recensement-copy.csv");
 
         List<String> lines = Files.readAllLines(Path.of(paths), StandardCharsets.UTF_8);
