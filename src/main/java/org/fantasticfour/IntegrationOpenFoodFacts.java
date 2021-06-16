@@ -796,7 +796,7 @@ public class IntegrationOpenFoodFacts {
 
                     .replace("maïs 70%, sucre 28 %, extrait de malt d'orge, sel.", "maïs 70%, sucre 28 %, extrait de malt d'orge, sel,")
                     .replace("sirop de malt d'orge bio, arôme naturel d'abricot avec autres arômes naturels,  sel de mer, émulsiﬁant: lécithines de tournesol", "sirop de malt d'orge bio, arôme naturel d'abricot avec autres arômes naturels,  sel de mer, émulsiﬁant: lécithines de tournesol.")
-                    .replace(" préparation à base d'huile végétale, sel, vitamines: niacine, e, b6.", " préparation à base d'huile végétale, sel, vitamines: niacine, e, b6,")
+                    .replace(" préparation à base d'huile végétale, sel, vitamines: niacine, e, b6.", " préparation à base d'huile végétale, sel")
                     .replace("colorant: caroténoïdes, antiagglomérant carbonate de calcium, émulsifiant lécithines de tournesol, arôme, antioxydant tocophérols.", "colorant: caroténoïdes, antiagglomérant carbonate de calcium, émulsifiant lécithines de tournesol, arôme, antioxydant tocophérols,")
                     .replace("préparation à base d'huile végétale, sel, vitamines: niacine, e, b6, riboflavine, thiamine, acide folique, b12. fer.", "préparation à base d'huile végétale, sel, vitamines: niacine, e, b6, riboflavine, thiamine, acide folique, b12, fer.")
                     .replace("émulsifiant: mono, et diglycérides d'acides gras, vitamines c, niacine, acide pantothénique, b6. riboflavine", "émulsifiant: mono, et diglycérides d'acides gras, vitamines c, niacine, acide pantothénique, b6, riboflavine")
@@ -811,6 +811,8 @@ public class IntegrationOpenFoodFacts {
                     .replace("sarrasin 99%, sel", "sarrasin 99%, sel.")
                     .replace(" noisettes toastées, pommes séchées 1%, noix de coco séchées 1%, figues séchées", " noisettes toastées, pommes séchées 1%, noix de coco séchées 1%, figues séchées.")
                     .replace("millet", "millet.")
+                    .replace("sucre farine de blé oeuf sirop de glucose fructose graisses végétaleslait entier concentré sucré 8.5%humectantbeurre de cacao lait écrémé en poudre 3.2%pâte de cacao lactoserum en poudre de lait beurre concentré émulsifiantalcool sel poudre à leverarômes amidon de froment  peut contenir fruit à coque",
+                            "sucre , farine de blé, oeuf ,sirop de glucose, fructose ,graisses végétales,lait entier  concentré sucré 8.5% ,humectant , beurre de cacao lait écrémé en poudre 3.2% , pâte de cacao , lactoserum en poudre de lait , beurre , concentré émulsifiant , alcool, sel, poudre à lever , arômes amidon de froment  peut contenir fruit à coque")
                     .replace("noix de coco toastée en lamelles 4%. produits issus de l'agriculture biologique", "noix de coco toastée en lamelles 4%.")
                     .replace("flocons d'avoine complets", "flocons d'avoine complets.")
                     .replace("flocons de blé, flocons d'orge· pépites de chocolat noir 10%,", "flocons de blé, flocons d'orge, pépites de chocolat noir 10%,")
@@ -1009,10 +1011,10 @@ public class IntegrationOpenFoodFacts {
             myWriter.write(replaceEnderscoreIngredients + "\n");
 
 
-            em.getTransaction().begin();
+            /*em.getTransaction().begin();
             Product products = new Product(name, nutriGrade, energie, fat, sugar, fiber, proteins, salt, calcium, magnesium, iron, fer, beta_carotene, palm_oil);
             em.persist(products);
-            em.getTransaction().commit();
+            em.getTransaction().commit();*/
 
             List<String> blockIngredientj = new ArrayList<String>(Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
             Set<Ingredient> ingredientList = new HashSet<>();
@@ -1020,10 +1022,10 @@ public class IntegrationOpenFoodFacts {
 
                 if (deleteSameIngredients.add(blockIngredientj.get(j).trim())) {
                     System.out.println(blockIngredientj.get(j));
-                    em.getTransaction().begin();
+                    /*em.getTransaction().begin();
                     Ingredient ingredientsDB = new Ingredient(blockIngredientj.get(j));
                     em.persist(ingredientsDB);
-                    em.getTransaction().commit();
+                    em.getTransaction().commit();*/
                 }
                 /*Ingredient ingredientsDBAll =  ingredientService.findByName(blockIngredientj.get(j));*/
 
