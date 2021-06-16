@@ -262,7 +262,6 @@ public class IntegrationOpenFoodFacts {
                     .replace("correcteur d'acidité. chocolat au lait 48 %:","correcteur d'acidité, chocolat au lait 48 %:")
                     .replace(" :.","")
                     .replace(". , ingrédients ","")
-                    .replace(" c","")
                     .replace("farine de blé t 65.","farine de blé t 65,")
                     .replace("du pivert bucliichil bio ganzilia& chocolade fabriqué en aveyron , france",",chocolat,")
                     .replace(".  ingrédients issus de l’agriculture ","")
@@ -634,6 +633,9 @@ public class IntegrationOpenFoodFacts {
                     .replace("real issu duommerce équitable de bolivie , de l'agriculture ","")
                     .replace(", issue de l'agriculture ","")
                     .replace("ingrédient: épeautreompl,a issude l'agriculture ","épeautre")
+                    .replace(",rème pasteurisés,","crème pasteurisés,")
+                    .replace(" lactiques.des épices ","")
+                    .replace(",rème de lait,","crème de lait ,")
                     /*=============Dimitri 3_351-6_700=====================================*/
                     .replace("arôme naturel de vanille.","arôme naturel de vanille,")
                     .replace("crème, poudre de babeurre, gélifiants: e407 et e415. sel.","crème, poudre de babeurre, gélifiants: e407 et e415, sel")
@@ -788,7 +790,7 @@ public class IntegrationOpenFoodFacts {
                     .replace("ingrédients/ingredientes/ingredient","")
                     .replace(", et diglycérides d'acides gras traces éventuelles de lait et de fruits à coque.",",  diglycérides d'acides gras traces éventuelles de lait , de fruits à coque.")
                     .replace(".  ingrédients issus de l'agriculture biologique.","")
-
+                    .replace("inghédients & nutrition mélange équilibré pour la préparation de pain de campagne ingrédients:","")
 
                     /*=============Remi 6_701-10_050========================================*/
 
