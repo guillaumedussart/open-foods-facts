@@ -2,12 +2,7 @@ package org.fantasticfour;
 
 import org.fantasticfour.bll.AppService;
 import org.fantasticfour.bll.IngredientService;
-import org.fantasticfour.bo.Additive;
-import org.fantasticfour.bo.Allergen;
-import org.fantasticfour.bo.Category;
-import org.fantasticfour.bo.Ingredient;
-import org.fantasticfour.bo.Mark;
-import org.fantasticfour.bo.Product;
+import org.fantasticfour.bo.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -33,11 +28,11 @@ public class IntegrationOpenFoodFacts {
 
 	public static void main(String[] args) throws IOException, SQLException {
 
-		ResourceBundle bundle = ResourceBundle.getBundle("db");
-		PATH_FILE = bundle.getString("path.file");
-		Path paths = Paths.get(PATH_FILE + "src/main/resources/open-food-facts.csv");
+        ResourceBundle bundle = ResourceBundle.getBundle("db");
+        PATH_FILE = bundle.getString("path.file");
+        Path paths = Paths.get(PATH_FILE + "src/main/resources/File/open-food-facts.csv");
 
-		FileWriter myWriter = new FileWriter(PATH_FILE + "src/main/resources/files/recensement-copy.csv");
+        FileWriter myWriter = new FileWriter(PATH_FILE + "src/main/resources/File/recensement-copy.csv");
 
 		List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
 
@@ -47,11 +42,11 @@ public class IntegrationOpenFoodFacts {
 		HashSet<String> deleteSameAllergen = new HashSet<>();
 		HashSet<String> deleteSameAdditive = new HashSet<>();
 
-		
-		
+
+
 		for (int i = 1; i < lines.size(); i++) {
-			
-				
+
+
 			String line = lines.get(i);
 			String[] part = line.replace("|’", "l'").replace("—|a", " a").replace("ty|ate de sodium", "tyate de sodium")
 					.replace(" conservateur |antioxydant: levure", " conservateur antioxydant: levure")
@@ -1383,6 +1378,10 @@ public class IntegrationOpenFoodFacts {
 			em.persist(products);
 			em.getTransaction().commit();
 
+			em.getTransaction().begin();
+			Vitamine vitamines = new Vitamine(vitA,vitD,vitE,vitK,vitC,vitB1,vitB2,vitPP,vitB6,vitB9,vitB12);
+			em.persist(vitamines);
+			em.getTransaction().commit();
 			List<String> blockIngredient = new ArrayList<String>(
 					Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
 			Set<Ingredient> ingredientList = new HashSet<>();
@@ -1404,7 +1403,7 @@ public class IntegrationOpenFoodFacts {
 				 * ingredientList.add(ingredientsDBAll);
 				 * products.setIngredients(ingredientList);
 				 * products.addIngredient(ingredientsDBAll);
-				 * 
+				 *
 				 * products.addIngredient(ingredientsDBAll);
 				 */
 			}
@@ -1443,7 +1442,7 @@ public class IntegrationOpenFoodFacts {
 			 * for (int j = 1; j < blockIngredientj.size(); j++) { List<String>
 			 * blockIngredientk = new
 			 * ArrayList<String>(Arrays.asList(blockIngredientj.get(j).trim().split(";")));
-			 * 
+			 *
 			 * for (int k = 1; k < blockIngredientk.size(); k++) {
 			 * System.out.println(blockIngredientk.get(k)); //List<String>
 			 * blockIngredientClean = new
@@ -1454,12 +1453,12 @@ public class IntegrationOpenFoodFacts {
 			 * ArrayList<String>(Arrays.asList(blockIngredientj.get(j).trim().split(";")));
 			 * for (int f = 1; f < blockIngredientf.size(); f++) { if
 			 * (deleteSameIngredients2.add(blockIngredientf.get(f).trim().toLowerCase())) {
-			 * 
+			 *
 			 * System.out.println(blockIngredientf.get(f)); em.getTransaction().begin();
 			 * Ingredient ingredientsDB = new Ingredient(blockIngredientf.get(f));
 			 * em.persist(ingredientsDB); em.getTransaction().commit(); } }
 			 * if(deleteSameIngredients.add(blockIngredientk.get(k))) {
-			 * 
+			 *
 			 * System.out.println(blockIngredientj.get(j));
 			 * System.out.println("-----------------------------------------------------");
 			 * System.out.println(blockIngredientk.get(k)); } } em.getTransaction().begin();
