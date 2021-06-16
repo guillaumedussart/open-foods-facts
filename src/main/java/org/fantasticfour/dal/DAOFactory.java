@@ -2,6 +2,7 @@ package org.fantasticfour.dal;
 
 
 import org.fantasticfour.dal.jpa.CategoryJPADAO;
+import org.fantasticfour.dal.jpa.IngredientJPADAO;
 import org.fantasticfour.dal.jpa.ProductJPADAO;
 
 public final class DAOFactory {
@@ -25,6 +26,15 @@ public final class DAOFactory {
         IProductDAO dao = null;
 
         dao = new ProductJPADAO();
+
+
+        return dao;
+    }
+    public static IIngredientDAO getIngredientDAO() {
+
+        IngredientJPADAO dao = null;
+
+        dao = new IngredientJPADAO();
 
 
         return dao;

@@ -1,19 +1,24 @@
 package org.fantasticfour;
 
 import org.fantasticfour.bll.AppService;
+import org.fantasticfour.bll.IngredientService;
 import org.fantasticfour.bo.Category;
+import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.bo.Mark;
 import org.fantasticfour.bo.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.*;
 
 public class IntegrationOpenFoodFacts {
@@ -22,32 +27,46 @@ public class IntegrationOpenFoodFacts {
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
     private static EntityManager em = emf.createEntityManager();
     private static AppService appService = AppService.getSingle();
+    private static IngredientService ingredientService = IngredientService.getSingle();
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
 
         ResourceBundle bundle = ResourceBundle.getBundle("db");
         PATH_FILE = bundle.getString("path.file");
-        Path paths = Paths.get(PATH_FILE+"src/main/resources/open-food-facts.csv");
+        Path paths = Paths.get(PATH_FILE + "src/main/resources/open-food-facts.csv");
 
-        FileWriter myWriter = new FileWriter(PATH_FILE+"src/main/resources/files/recensement-copy.csv");
+        FileWriter myWriter = new FileWriter(PATH_FILE + "src/main/resources/files/recensement-copy.csv");
 
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
+        BufferedReader brTest = new BufferedReader(new FileReader(PATH_FILE+"src/main/resources/open-food-facts.csv"));
 
+       /* String text = brTest.readLine();
+// Stop. text is the first line.
+        System.out.println(text);
+        List<String> part = Arrays.asList(text.split("\\|"));
+        for(int i =0;i<=part.size();i++){
+            if(part.get(i).contains("vit")){
+                String cut = part.get(i).replace("100g","");
+                System.out.println(i+" "+cut);
+            }
+        }*/
         HashSet<String> deleteSameIngredients = new HashSet<>();
         HashSet<String> deleteSameCategories = new HashSet<>();
         HashSet<String> deleteSameMarks = new HashSet<>();
 
+
+       /* while(iterLines.hasNext()){
+            String firstLine = iterLines.next();
+            String[] part = firstLine.split("\\|");
+            if(firstLine.contains("vit")){
+                System.out.println(firstLine);
+            }
+        }*/
+
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
-            String[] part = line.replace("|’", "l'")
-                    .replace("—|a", " a")
-                    .replace("ty|ate de sodium", "tyate de sodium")
-                    .replace(" conservateur |antioxydant: levure", " conservateur antioxydant: levure")
-                    .replace("|% [maltodextrine de blé", ",maltodextrine de blé")
-                    .replace("Filets de colin d’A|aska 72%qualité sans arête*", "Filets de colin d’Aaska 72% qualité sans arête")
-                    .replace("Calin+ Fruits Pêche, Abricot, Fraise, Framboise)", "Calin+ Fruits Pêche, Abricot, Fraise, Framboise")
-                    .split("\\|");
+            String[] part = appService.splitAndPurifyAllLines(line);
 
             String category = part[0];
             String mark = part[1];
@@ -80,19 +99,10 @@ public class IntegrationOpenFoodFacts {
             double beta_carotene = appService.beta_carotene;
             boolean palm_oil = appService.palm_oil;
 
-            if (deleteSameCategories.add(category)) {
-                em.getTransaction().begin();
-                Category categories = new Category(category);
-                em.persist(categories);
-                em.getTransaction().commit();
-            }
+            appService.insertCategory(deleteSameCategories,category);
 
-            if (deleteSameMarks.add(mark)) {
-                em.getTransaction().begin();
-                Mark marks = new Mark(mark);
-                em.persist(marks);
-                em.getTransaction().commit();
-            }
+            appService.insertMarks(deleteSameMarks,mark);
+
             System.out.println("nomProduit----------------------------------");
             System.out.println(i + " " + name);
             System.out.println("------------------------------------------------");
@@ -198,275 +208,17 @@ public class IntegrationOpenFoodFacts {
                     /*439*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     /*=============Dimitri 3_351-6_700=====================================*/
 
 
                     /*=============Remi 6_701-10_050========================================*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     .replace("maïs 70%, sucre 28 %, extrait de malt d'orge, sel.", "maïs 70%, sucre 28 %, extrait de malt d'orge, sel,")
                     .replace("sirop de malt d'orge bio, arôme naturel d'abricot avec autres arômes naturels,  sel de mer, émulsiﬁant: lécithines de tournesol", "sirop de malt d'orge bio, arôme naturel d'abricot avec autres arômes naturels,  sel de mer, émulsiﬁant: lécithines de tournesol.")
                     .replace(" préparation à base d'huile végétale, sel, vitamines: niacine, e, b6.", " préparation à base d'huile végétale, sel, vitamines: niacine, e, b6,")
                     .replace("colorant: caroténoïdes, antiagglomérant carbonate de calcium, émulsifiant lécithines de tournesol, arôme, antioxydant tocophérols.", "colorant: caroténoïdes, antiagglomérant carbonate de calcium, émulsifiant lécithines de tournesol, arôme, antioxydant tocophérols,")
-                    .replace("préparation à base d'huile végétale, sel, vitamines: niacine, e, b6, riboflavine, thiamine, acide folique, b12. fer.","préparation à base d'huile végétale, sel, vitamines: niacine, e, b6, riboflavine, thiamine, acide folique, b12, fer.")
+                    .replace("préparation à base d'huile végétale, sel, vitamines: niacine, e, b6, riboflavine, thiamine, acide folique, b12. fer.", "préparation à base d'huile végétale, sel, vitamines: niacine, e, b6, riboflavine, thiamine, acide folique, b12, fer.")
                     .replace("émulsifiant: mono, et diglycérides d'acides gras, vitamines c, niacine, acide pantothénique, b6. riboflavine", "émulsifiant: mono, et diglycérides d'acides gras, vitamines c, niacine, acide pantothénique, b6, riboflavine")
                     .replace("graines de lin brin 11%, fruits secs, sucre de coco 6.3%, huile de coco 6.3%, noix de coco 2.1%, sel, poudre de vanille.:", "graines de lin brin 11%, fruits secs, sucre de coco 6.3%, huile de coco 6.3%, noix de coco 2.1%, sel, poudre de vanille:")
                     .replace("farine de blé sucre: huile de palme, lait en poudre écrémé, poudres à lever: e503. e500. e450. sel,", "farine de blé sucre: huile de palme, lait en poudre écrémé, poudres à lever: e503, e500, e450, sel,")
@@ -481,7 +233,7 @@ public class IntegrationOpenFoodFacts {
                     .replace("millet", "millet.")
                     .replace("noix de coco toastée en lamelles 4%. produits issus de l'agriculture biologique", "noix de coco toastée en lamelles 4%.")
                     .replace("flocons d'avoine complets", "flocons d'avoine complets.")
-                    .replace("flocons de blé, flocons d'orge· pépites de chocolat noir 10%,","flocons de blé, flocons d'orge, pépites de chocolat noir 10%,")
+                    .replace("flocons de blé, flocons d'orge· pépites de chocolat noir 10%,", "flocons de blé, flocons d'orge, pépites de chocolat noir 10%,")
                     .replace("ingrédients issus de l'agriculture biologique.", "")
                     .replace("céréales 65.2%, sucre de canne, huile de tournesol, noix de coco, sirop de riz. ingrédients issus de l’agriculture biologique.", "céréales 65.2%, sucre de canne, huile de tournesol, noix de coco, sirop de riz,")
                     .replace("sucre de canne, huile de tournesol, morceaux de chocolat noir 5.1 %, sirop de riz, cacao maigre en poudre. ingrédients issus de l’agriculture biologique.", "sucre de canne, huile de tournesol, morceaux de chocolat noir 5.1 %, sirop de riz, cacao maigre en poudre.")
@@ -510,64 +262,6 @@ public class IntegrationOpenFoodFacts {
                     .replace("sel, farine d'orge maltée, vitamines: c, b3 ou pp, b6. b2. b1. b9. b21.", "sel, farine d'orge maltée, ")
                     .replace("son de riz, sucre de canne, sel //  ingrédients issus de l'agriculture biologique", "son de riz, sucre de canne, sel .")
                     .replace("correcteur d'acidité: phosphate de sodium, arôme, vitamines d, pp, b5. b6. b2. b1. b9 et minéraux", "correcteur d'acidité: phosphate de sodium, arôme.")
-                    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                     /*=============Moa reste==================================================*/
@@ -634,46 +328,52 @@ public class IntegrationOpenFoodFacts {
                     .replace(" graines de sésame, maltodextrine de maïs, algues séchées, piment en poudre, colorants: e140. e100. e160c, e162. e150a.",
                             " graines de sésame, maltodextrine de maïs, algues séchées, piment en poudre, colorants: e140. e100. e160c e162. e150a.")
                     .replace("sel marin. dorure: œufs.", "sel marin., dorure: œufs.")
-                    .replace(" emmental  lait demi,écrémé"," emmental  lait demi-écrémé")
-                    .replace("100 % viande bovine française.","100% viande bovine française.")
-                    .replace("eau, fromage frais 18.2 % lait écrémé,","eau, fromage frais 18.2 %, lait écrémé,")
-                    .replace("mini,cake à l'olive noire: œuf entier liquide pasteurisé,","mini cake à l'olive noire, œuf entier liquide pasteurisé,")
-                    .replace("queue de crevette crue décortiquée 12 % crevetteconservateur: métabisulfite de sodium,","queue de crevette crue décortiquée 12 % , conservateur: métabisulfite de sodium,")
-                    .replace(" laitécrémé en poudre,"," lait écrémé en poudre,")
+                    .replace(" emmental  lait demi,écrémé", " emmental  lait demi-écrémé")
+                    .replace("100 % viande bovine française.", "100% viande bovine française.")
+                    .replace("eau, fromage frais 18.2 % lait écrémé,", "eau, fromage frais 18.2 %, lait écrémé,")
+                    .replace("mini,cake à l'olive noire: œuf entier liquide pasteurisé,", "mini cake à l'olive noire, œuf entier liquide pasteurisé,")
+                    .replace("queue de crevette crue décortiquée 12 % crevetteconservateur: métabisulfite de sodium,", "queue de crevette crue décortiquée 12 % , conservateur: métabisulfite de sodium,")
+                    .replace(" laitécrémé en poudre,", " lait écrémé en poudre,")
                     .replace("moule cuite décoquillée 45 %mytilus edulis sauvage pêchée à la drague en atlantique nord,est, sous,zone mer du nord, noix de saint,jacques crue27.5 % zygochlamys patagonica sauvage pêchée au chalut en atlantique sud,ouest, crevette nordique cuite décortiquée26.8 % pandalus borealis sauvage pêchée au chalut en atlantique nord,est, sous,zones mer de barents, mers de norvège, sel.",
                             "moule cuite décoquillée 45 % mytilus edulis sauvage pêchée à la drague en atlantique nord est sous zone mer du nord, noix de saint-jacques crue 27.5 % zygochlamys patagonica sauvage pêchée au chalut en atlantique sud-ouest, crevette nordique cuite décortiquée 26.8 % pandalus borealis sauvage pêchée au chalut en atlantique nord-est sous zones mers de norvège, sel.")
-.replace("noix de saint,jacques sans corail.","noix de saint-jacques sans corail.")
-                    .replace("noix de saint,jacques 100%.","noix de saint-jacques 100%.")
+                    .replace("noix de saint,jacques sans corail.", "noix de saint-jacques sans corail.")
+                    .replace("noix de saint,jacques 100%.", "noix de saint-jacques 100%.")
                     .replace("crème fraîche liquide44.2 %, girolle 21.1 %, cèpe 21.1 %, morille 8 %, ail 2.9 %, persil 1.9 %, sel, poivre. 1.9+2.9+8+42.2",
                             "crème fraîche liquide 44.2 %, girolle 21.1 %, cèpe 21.1 %, morille 8 %, ail 2.9 %, persil 1.9 %, sel, poivre.")
-                    .replace("noix de muscade 0.01% issus d'animaux nés, élevés et abattus en ue","noix de muscade 0.01%")
-                    .replace(" fromage de chèvreaffiné 5 %, "," fromage de chèvre affiné 5 %, ")
-                    .replace(" levain de seigledévitalisé,"," levain de seigle dévitalisé,")
-                    .replace("choux,fleurs en fleurettes 100 %.","choux-fleurs en fleurettes 100 %.")
-                    .replace("59% choux,fleurs, eau, 8.5% crème, jaune d'œuf, 5% emmental, préparation à base de lactosérum,","59% choux,fleurs, eau, 8.5% crème, jaune d'œuf, 5% emmental, préparation à base de lactosérum,")
-                    .replace("mozzareila, olives noircies avec noyau, basilic et origan..  41% pâte: farine de blé, eau, levure, sel.","mozzarella, olives noircies avec noyau, basilic et origan. , farine de blé, eau, levure, sel.")
-
-                    ;
+                    .replace("noix de muscade 0.01% issus d'animaux nés, élevés et abattus en ue", "noix de muscade 0.01%")
+                    .replace(" fromage de chèvreaffiné 5 %, ", " fromage de chèvre affiné 5 %, ")
+                    .replace(" levain de seigledévitalisé,", " levain de seigle dévitalisé,")
+                    .replace("choux,fleurs en fleurettes 100 %.", "choux-fleurs en fleurettes 100 %.")
+                    .replace("59% choux,fleurs, eau, 8.5% crème, jaune d'œuf, 5% emmental, préparation à base de lactosérum,", "59% choux,fleurs, eau, 8.5% crème, jaune d'œuf, 5% emmental, préparation à base de lactosérum,")
+                    .replace("mozzareila, olives noircies avec noyau, basilic et origan..  41% pâte: farine de blé, eau, levure, sel.", "mozzarella, olives noircies avec noyau, basilic et origan. , farine de blé, eau, levure, sel.");
             myWriter.write(replaceEnderscoreIngredients + "\n");
 
-            em.getTransaction().begin();
 
+            em.getTransaction().begin();
             Product products = new Product(name, nutriGrade, energie, fat, sugar, fiber, proteins, salt, calcium, magnesium, iron, fer, beta_carotene, palm_oil);
+            em.persist(products);
+            em.getTransaction().commit();
 
             List<String> blockIngredientj = new ArrayList<String>(Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
+            Set<Ingredient> ingredientList = new HashSet<>();
             for (int j = 0; j < blockIngredientj.size(); j++) {
 
                 if (deleteSameIngredients.add(blockIngredientj.get(j).trim())) {
                     System.out.println(blockIngredientj.get(j));
-
-                    /*Ingredient ingredientsDB = new Ingredient(blockIngredientj.get(j));
-                    em.persist(ingredientsDB);*/
-
+                    em.getTransaction().begin();
+                    Ingredient ingredientsDB = new Ingredient(blockIngredientj.get(j));
+                    em.persist(ingredientsDB);
+                    em.getTransaction().commit();
                 }
+                Ingredient ingredientsDBAll =  ingredientService.findByName(blockIngredientj.get(j));
 
+                ingredientList.add(ingredientsDBAll);
+                products.setIngredients(ingredientList);
+                products.addIngredient(ingredientsDBAll);
+
+                products.addIngredient(ingredientsDBAll);
             }
 
-            em.getTransaction().commit();
 
             /*for (int j = 1; j < blockIngredientj.size(); j++) {
                 List<String> blockIngredientk = new ArrayList<String>(Arrays.asList(blockIngredientj.get(j).trim().split(";")));
@@ -693,22 +393,21 @@ public class IntegrationOpenFoodFacts {
                                 em.getTransaction().commit();
                             }
                         }
-                        *//*if(deleteSameIngredients.add(blockIngredientk.get(k))) {
+                        if(deleteSameIngredients.add(blockIngredientk.get(k))) {
 
                             System.out.println(blockIngredientj.get(j));
                             System.out.println("-----------------------------------------------------");
                             System.out.println(blockIngredientk.get(k));
-                        }*//*
+                        }
                     }
-                    *//*em.getTransaction().begin();
+                    em.getTransaction().begin();
                     Ingredient ingredient = new Ingredient(blockIngredient.get(j));
                     em.persist(ingredient);
-                    em.getTransaction().commit();*//*
+                    em.getTransaction().commit();
                 }
             }*/
         }
         myWriter.close();
-
 
         emf.close();
         em.close();

@@ -162,4 +162,45 @@ public class AppService {
         }
     }
 
+    public String[] splitAndPurifyAllLines(String line) {
+        String[] parts = line.replace("|’", "l'")
+                .replace("—|a", " a")
+                .replace("ty|ate de sodium", "tyate de sodium")
+                .replace(" conservateur |antioxydant: levure", " conservateur antioxydant: levure")
+                .replace("|% [maltodextrine de blé", ",maltodextrine de blé")
+                .replace("Filets de colin d’A|aska 72%qualité sans arête*", "Filets de colin d’Aaska 72% qualité sans arête")
+                .replace("Calin+ Fruits Pêche, Abricot, Fraise, Framboise)", "Calin+ Fruits Pêche, Abricot, Fraise, Framboise")
+                .split("\\|");
+        return parts;
+    }
+
+    /**
+     * insert marks
+     *
+     * @param deleteSameMarks deleteSameMarks
+     * @param mark mark
+     */
+    public void insertMarks(HashSet<String> deleteSameMarks, String mark) {
+        if (deleteSameMarks.add(mark)) {
+            em.getTransaction().begin();
+            Mark marks = new Mark(mark);
+            em.persist(marks);
+            em.getTransaction().commit();
+        }
+    }
+
+    /**
+     * insert category
+     *
+     * @param deleteSameCategories deleteSameCategories
+     * @param category             category
+     */
+    public void insertCategory(HashSet<String> deleteSameCategories, String category) {
+        if (deleteSameCategories.add(category)) {
+            em.getTransaction().begin();
+            Category categories = new Category(category);
+            em.persist(categories);
+            em.getTransaction().commit();
+        }
+    }
 }

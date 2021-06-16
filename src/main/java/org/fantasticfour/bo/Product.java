@@ -265,7 +265,21 @@ public class Product implements Serializable {
     }
 
     public void setIngredients(Set<Ingredient> ingredients) {
+
         this.ingredients = ingredients;
+
+    }
+
+    public void addIngredient(Ingredient ingredient) {
+        if (null != ingredient) {
+            ingredients.add(ingredient);
+            ingredient.getProducts().add(this);
+        }
+    }
+
+    public void removeTag(Ingredient ingredient) {
+        ingredients.remove(ingredient);
+        ingredient.getProducts().remove(this);
     }
 
     public Category getCategorie() {
@@ -273,7 +287,13 @@ public class Product implements Serializable {
     }
 
     public void setCategorie(Category categorie) {
+        if (categorie.getProducts().contains(this)) {
+            categorie.getProducts().remove(this);
+        }
         this.categorie = categorie;
+        if (!categorie.getProducts().contains(this)) {
+            categorie.getProducts().add(this);
+        }
     }
 
     public Set<Allergen> getAllergenes() {
