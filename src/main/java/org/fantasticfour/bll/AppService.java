@@ -43,6 +43,8 @@ public class AppService {
     public double fer;
     public double beta_carotene;
     public boolean palm_oil;
+    public String allergen;
+    public String additive;
 
     private AppService() {
     }//Prevent initialization
@@ -64,6 +66,8 @@ public class AppService {
         name = part[2];
         nutriGrade = part[3];
         ingredients = part[4];
+        allergen = part[28];
+        additive = part[29];
 
         energie = 0;
         if (!part[5].isEmpty()) {
@@ -159,6 +163,14 @@ public class AppService {
         palm_oil = false;
         if (!part[27].isEmpty()) {
             palm_oil = Boolean.parseBoolean(part[27]);
+        }
+        allergen = null;
+        if(!part[28].isEmpty()) {
+        	allergen = part[28];
+        }
+        additive = null;
+        if(!part[29].isEmpty()) {
+        	additive = part[29];
         }
     }
 

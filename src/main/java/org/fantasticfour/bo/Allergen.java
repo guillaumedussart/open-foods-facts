@@ -11,7 +11,7 @@ public class Allergen implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",length = 50)
+    @Column(name = "name",length = 100,nullable = true)
     private String nom;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -23,7 +23,13 @@ public class Allergen implements Serializable{
     
     
 
-    public Allergen(String nom, Product product) {
+    public Allergen(String nom) {
+		this.nom = nom;
+	}
+
+
+
+	public Allergen(String nom, Product product) {
         this.nom = nom;
         this.product = product;
     }

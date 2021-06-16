@@ -12,16 +12,18 @@ public class Additive implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",length = 100,nullable = false)
+    @Column(name = "name",length = 100,nullable = true)
     private String name;
 
     @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
     private Set<Product> products;
+    
 
 
     public Additive() {
 
     }
+    
 
     public Additive(String name) {
         this.name = name;
