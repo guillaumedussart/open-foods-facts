@@ -39,34 +39,26 @@ public class IntegrationOpenFoodFacts {
         FileWriter myWriter = new FileWriter(PATH_FILE + "src/main/resources/files/recensement-copy.csv");
 
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
-        BufferedReader brTest = new BufferedReader(new FileReader(PATH_FILE+"src/main/resources/open-food-facts.csv"));
 
-       /* String text = brTest.readLine();
-// Stop. text is the first line.
-        System.out.println(text);
-        List<String> part = Arrays.asList(text.split("\\|"));
-        for(int i =0;i<=part.size();i++){
-            if(part.get(i).contains("vit")){
-                String cut = part.get(i).replace("100g","");
-                System.out.println(i+" "+cut);
-            }
-        }*/
+
         HashSet<String> deleteSameIngredients = new HashSet<>();
         HashSet<String> deleteSameCategories = new HashSet<>();
         HashSet<String> deleteSameMarks = new HashSet<>();
 
 
-       /* while(iterLines.hasNext()){
-            String firstLine = iterLines.next();
-            String[] part = firstLine.split("\\|");
-            if(firstLine.contains("vit")){
-                System.out.println(firstLine);
-            }
-        }*/
+
 
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
-            String[] part = appService.splitAndPurifyAllLines(line);
+            String[] part = line.replace("|’", "l'")
+                    .replace("—|a", " a")
+                    .replace("ty|ate de sodium", "tyate de sodium")
+                    .replace(" conservateur |antioxydant: levure", " conservateur antioxydant: levure")
+                    .replace("|% [maltodextrine de blé", ",maltodextrine de blé")
+                    .replace("Filets de colin d’A|aska 72%qualité sans arête*", "Filets de colin d’Aaska 72% qualité sans arête")
+                    .replace("Calin+ Fruits Pêche, Abricot, Fraise, Framboise)", "Calin+ Fruits Pêche, Abricot, Fraise, Framboise")
+                    .split("\\|");
+
 
             String category = part[0];
             String mark = part[1];
@@ -99,9 +91,19 @@ public class IntegrationOpenFoodFacts {
             double beta_carotene = appService.beta_carotene;
             boolean palm_oil = appService.palm_oil;
 
-            appService.insertCategory(deleteSameCategories,category);
+            if (deleteSameMarks.add(mark)) {
+                em.getTransaction().begin();
+                Mark marks = new Mark(mark);
+                em.persist(marks);
+                em.getTransaction().commit();
+            }
 
-            appService.insertMarks(deleteSameMarks,mark);
+            if (deleteSameCategories.add(category)) {
+                em.getTransaction().begin();
+                Category categories = new Category(category);
+                em.persist(categories);
+                em.getTransaction().commit();
+            }
 
             System.out.println("nomProduit----------------------------------");
             System.out.println(i + " " + name);
@@ -349,10 +351,10 @@ public class IntegrationOpenFoodFacts {
             myWriter.write(replaceEnderscoreIngredients + "\n");
 
 
-            em.getTransaction().begin();
+           /* em.getTransaction().begin();
             Product products = new Product(name, nutriGrade, energie, fat, sugar, fiber, proteins, salt, calcium, magnesium, iron, fer, beta_carotene, palm_oil);
             em.persist(products);
-            em.getTransaction().commit();
+            em.getTransaction().commit();*/
 
             List<String> blockIngredientj = new ArrayList<String>(Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
             Set<Ingredient> ingredientList = new HashSet<>();
@@ -360,18 +362,18 @@ public class IntegrationOpenFoodFacts {
 
                 if (deleteSameIngredients.add(blockIngredientj.get(j).trim())) {
                     System.out.println(blockIngredientj.get(j));
-                    em.getTransaction().begin();
+                    /*em.getTransaction().begin();
                     Ingredient ingredientsDB = new Ingredient(blockIngredientj.get(j));
                     em.persist(ingredientsDB);
-                    em.getTransaction().commit();
+                    em.getTransaction().commit();*/
                 }
-                Ingredient ingredientsDBAll =  ingredientService.findByName(blockIngredientj.get(j));
+                /*Ingredient ingredientsDBAll =  ingredientService.findByName(blockIngredientj.get(j));*/
 
-                ingredientList.add(ingredientsDBAll);
+               /* ingredientList.add(ingredientsDBAll);
                 products.setIngredients(ingredientList);
                 products.addIngredient(ingredientsDBAll);
 
-                products.addIngredient(ingredientsDBAll);
+                products.addIngredient(ingredientsDBAll);*/
             }
 
 
