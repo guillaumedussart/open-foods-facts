@@ -3,14 +3,9 @@ package org.fantasticfour.bll;
 
 import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.dal.DAOFactory;
-import org.fantasticfour.dal.IDAO;
 import org.fantasticfour.dal.IIngredientDAO;
-import org.fantasticfour.dal.IProductDAO;
-import org.fantasticfour.dal.jpa.IngredientJPADAO;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.sql.SQLException;
 import java.util.List;
@@ -36,17 +31,16 @@ public class IngredientService {
         }
         return single;
     }
-    public Ingredient findByName(String string) throws SQLException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<Ingredient> query = em.createQuery("SELECT i FROM Ingredient i WHERE i.name = :name",Ingredient.class);
-        query.setParameter("name", string);
 
-        List<Ingredient> ingredient = query.getResultList();
+    public Ingredient findByName(EntityManager em, String string) throws SQLException {
+        TypedQuery<Ingredient> query = em.createQuery("SELECT i FROM Ingredient i WHERE i.name = :name", Ingredient.class);
+        query.setParameter("name", string);
+        return query.getSingleResult();
+        /*List<Ingredient> ingredient = query.getResultList();
         if (!ingredient.isEmpty()) {
             return ingredient.get(0);
         }
 
-        return null;
+        return null;*/
     }
 }

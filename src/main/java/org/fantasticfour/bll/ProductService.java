@@ -1,15 +1,23 @@
 package org.fantasticfour.bll;
 
 
+import org.fantasticfour.bo.Ingredient;
+import org.fantasticfour.bo.Product;
 import org.fantasticfour.dal.DAOFactory;
 import org.fantasticfour.dal.ICategoryDAO;
 import org.fantasticfour.dal.IProductDAO;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import java.sql.SQLException;
+import java.util.List;
 
 public class ProductService {
 
     private static ProductService single;
     private IProductDAO dao = DAOFactory.getProductDAO();
-
     private ProductService() {
     }//Prevent initialization
 
@@ -25,6 +33,20 @@ public class ProductService {
             single = new ProductService();
         }
         return single;
+    }
+
+    public Product findByName(EntityManager em,String string) {
+        System.out.println(string);
+        TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p WHERE p.name = :name", Product.class);
+        query.setParameter("name", string);
+
+        List<Product> product = query.getResultList();
+
+        if (!product.isEmpty()) {
+            return product.get(0);
+        }
+
+        return null;
     }
 
 }

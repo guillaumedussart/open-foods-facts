@@ -1,6 +1,5 @@
 package org.fantasticfour.bo;
 
-import com.mysql.cj.xdevapi.Client;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -270,17 +269,24 @@ public class Product implements Serializable {
 
     }
 
-    public void addIngredient(Ingredient ingredient) {
-        if (null != ingredient) {
-            ingredients.add(ingredient);
-            ingredient.getProducts().add(this);
+    public void addIngredient(Set<Ingredient> ingredients1) {
+        for(Ingredient ingredient : ingredients1) {
+            if (ingredient == null) {
+                this.ingredients.remove(this);
+            }
         }
+
+        this.ingredients =ingredients1;
+
+        for(Ingredient ingredient : ingredients1) {
+            if (ingredient != null) {
+                this.ingredients.add(ingredient);
+            }
+        }
+
     }
 
-    public void removeTag(Ingredient ingredient) {
-        ingredients.remove(ingredient);
-        ingredient.getProducts().remove(this);
-    }
+
 
     public Category getCategorie() {
         return categorie;
