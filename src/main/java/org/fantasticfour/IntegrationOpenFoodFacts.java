@@ -8,7 +8,6 @@ import java.sql.SQLException;
 public class IntegrationOpenFoodFacts {
 
 
-
   private static final AppService appService = AppService.getSingle();
 
 
