@@ -1,6 +1,7 @@
 package org.fantasticfour.bo;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -21,7 +22,9 @@ public class Category implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_category")
     private Set<Product> products;
-
+	{
+		this.products = new HashSet<>();
+	}
 	public Category(String name) {
 		this.name = name;
 	}

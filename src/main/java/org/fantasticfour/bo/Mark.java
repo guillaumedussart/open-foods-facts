@@ -2,6 +2,7 @@ package org.fantasticfour.bo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,6 +19,10 @@ public class Mark implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_mark")
     private Set<Product> products;
+
+    {
+        this.products = new HashSet<>();
+    }
 
     public Mark() {
     }

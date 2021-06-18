@@ -3,6 +3,7 @@ package org.fantasticfour.bo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,13 +17,17 @@ public class Ingredient implements Serializable {
     @Column(name = "name", length = 255)
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients")
+    @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Product> products;
+
+    {
+        this.products = new HashSet<>();
+    }
 
     public Ingredient() {
     }
 
-    public Ingredient(String name,Set<Product> products) {
+    public Ingredient(String name, Set<Product> products) {
         this.name = name;
         this.products = products;
     }
@@ -76,7 +81,6 @@ public class Ingredient implements Serializable {
      * get field @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST)
      *
      * @return products @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST)
-
      */
     public Set<Product> getProducts() {
         return this.products;
@@ -86,7 +90,6 @@ public class Ingredient implements Serializable {
      * set field @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST)
      *
      * @param products @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST)
-
      */
     public void setProducts(Set<Product> products) {
         this.products = products;
