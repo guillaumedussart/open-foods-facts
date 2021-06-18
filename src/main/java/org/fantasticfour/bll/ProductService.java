@@ -52,17 +52,10 @@ public class ProductService {
         return null;
     }
     
-    public List<Product> findByNameLike(EntityManager em,String string) {
+    public List<Product> findByNameLike(String string) {
     	
-    	TypedQuery<Product> query = em.createNamedQuery("SELECT p FROM Product p "
-    			+ "JOIN p.ingredients i WHERE p.id_ingredient = i.id_product "
-    			+ "JOIN p.additives a WHERE p.id_additive = a.id_product"
-    			+ "JOIN p.allergens al WHERE p.id = al.id_product"
-    			+ "JOIN p.marks m WHERE p.id_mark = m.id"
-    			+ "JOIN p.vitamines v WHERE p.id_vitamine = v.id_product"
-    			+ "JOIN p.category c WHERE p.id_category = c.id"
-    			+ "LIKE '%:name'", Product.class);
-    	
+    	TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p left join fetch p.ingredients join fetch p.additives  join fetch Allergen al join fetch Mark join fetch p.vitamines join fetch Category where p.name  like :name order by p.name", Product.class);
+
     	query.setParameter("name", string);
     	
     	List<Product> products = query.getResultList();
