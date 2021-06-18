@@ -16,7 +16,7 @@ public class Additive implements Serializable {
     @Column(name = "name", length = 100, nullable = true)
     private String name;
 
-    @ManyToMany(mappedBy = "additives", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "additives")
     private Set<Product> products;
 
     {
