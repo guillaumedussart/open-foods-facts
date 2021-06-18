@@ -15,6 +15,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ProductService {
+	
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts-get");
+	private EntityManager em = emf.createEntityManager();
 
     private static ProductService single;
     private IProductDAO dao = DAOFactory.getProductDAO();
@@ -47,6 +50,27 @@ public class ProductService {
         }
 
         return null;
+    }
+    
+    public List<Product> findByNameLike(EntityManager em,String string) {
+    	
+    	TypedQuery<Product> query = em.createNamedQuery("SELECT p FROM Product p "
+    			+ "JOIN p.ingredients i WHERE p.id_ingredient = i.id_product "
+    			+ "JOIN p.additives a WHERE p.id_additive = a.id_product"
+    			+ "JOIN p.allergens al WHERE p.id = al.id_product"
+    			+ "JOIN p.marks m WHERE p.id_mark = m.id"
+    			+ "JOIN p.vitamines v WHERE p.id_vitamine = v.id_product"
+    			+ "JOIN p.category c WHERE p.id_category = c.id"
+    			+ "LIKE '%:name'", Product.class);
+    	
+    	query.setParameter("name", string);
+    	
+    	List<Product> products = query.getResultList();
+    	if(!products.isEmpty()) {
+    		return products;
+    	}
+		
+    	return null;
     }
 
 }

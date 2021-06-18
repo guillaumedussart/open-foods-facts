@@ -1,25 +1,23 @@
 package org.fantasticfour.dal.jpa;
 
-import java.sql.SQLException;
-import java.util.Set;
+import org.fantasticfour.bo.Additive;
+import org.fantasticfour.dal.IAdditiveDAO;
+import org.fantasticfour.dal.IallergenDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import java.sql.SQLException;
+import java.util.Set;
 
-import org.fantasticfour.bo.Additive;
-import org.fantasticfour.bo.Category;
-import org.fantasticfour.dal.IAdditiveDAO;
+public class AllergenJPADAO implements IallergenDAO {
 
-public class AdditiveJPADAO implements IAdditiveDAO {
-
-
+	
 
 	@Override
 	public void create(Additive o) throws SQLException {
-
-
+		
 	}
 
 	@Override
@@ -33,6 +31,7 @@ public class AdditiveJPADAO implements IAdditiveDAO {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 	@Override

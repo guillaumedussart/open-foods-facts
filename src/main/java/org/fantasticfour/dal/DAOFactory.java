@@ -1,10 +1,7 @@
 package org.fantasticfour.dal;
 
 
-import org.fantasticfour.dal.jpa.CategoryJPADAO;
-import org.fantasticfour.dal.jpa.IngredientJPADAO;
-import org.fantasticfour.dal.jpa.MarkJPADAO;
-import org.fantasticfour.dal.jpa.ProductJPADAO;
+import org.fantasticfour.dal.jpa.*;
 
 public final class DAOFactory {
 
@@ -47,6 +44,26 @@ public final class DAOFactory {
         MarkJPADAO dao = null;
 
         dao = new MarkJPADAO();
+
+
+        return dao;
+    }
+
+    public static IallergenDAO getAllergenDAO() {
+
+        AllergenJPADAO dao = null;
+
+        dao = new AllergenJPADAO();
+
+
+        return dao;
+    }
+
+    public static IAdditiveDAO getAdditiveDAO() {
+
+        AdditiveJPADAO dao = null;
+
+        dao = new AdditiveJPADAO();
 
 
         return dao;

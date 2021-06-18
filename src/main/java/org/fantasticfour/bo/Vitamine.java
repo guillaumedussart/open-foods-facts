@@ -2,6 +2,7 @@ package org.fantasticfour.bo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -47,9 +48,11 @@ public class Vitamine implements Serializable{
     private double vitB12;
 
 
-    @ManyToMany(mappedBy = "vitamines" ,cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "vitamines" )
     private Set<Product> products;
-
+    {
+        this.products = new HashSet<>();
+    }
 
     public Vitamine() {
     }

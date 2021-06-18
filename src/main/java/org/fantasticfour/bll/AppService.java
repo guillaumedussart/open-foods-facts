@@ -59,6 +59,8 @@ public class AppService {
     private static ProductService productService = ProductService.getSingle();
     private static MarkService markService = MarkService.getSingle();
     private static CategoryService categoryService = CategoryService.getSingle();
+    private static AllergenService allergenService = AllergenService.getSingle();
+    private static AdditiveService additiveService = AdditiveService.getSingle();
 
     private HashSet<String> deleteSameIngredients = new HashSet<>();
     private HashSet<String> deleteSameCategories = new HashSet<>();
@@ -269,10 +271,11 @@ public class AppService {
             insertCategory(deleteSameCategories, category);
 
             Product products = new Product(name, nutriGrade, energie, fat, sugar, fiber, proteins, salt, calcium, magnesium, iron, fer, beta_carotene, palm_oil);
-            em.persist(products);
+
             Vitamine vitamines = new Vitamine(vitA, vitD, vitE, vitK, vitC, vitB1, vitB2, vitPP, vitB6, vitB9, vitB12);
             em.persist(vitamines);
-
+            products.addVitamine(vitamines);
+            em.persist(products);
 
             String replaceEnderscoreIngredients = this.pruifyIngredientCsv(ingredients);
 
@@ -338,6 +341,8 @@ public class AppService {
             String name = part[2];
             String ingredients = part[4];
             String marks = part[1];
+            String allergen = part[28];
+            String additive = part[29];
             System.out.println("produit----------------------------------------------");
             em.getTransaction().begin();
             Product products = productService.findByName(em, name);
@@ -358,18 +363,30 @@ public class AppService {
             System.out.println("block ingredient--------------------------------------");
 
             for (int j = 0; j < blockIngredient.size(); j++) {
-                System.out.println(blockIngredient.get(j));
                 Ingredient ingredientF = ingredientService.findByName(em, blockIngredient.get(j).trim());
-                setIngredient.add(ingredientF);
                 products.addIngredient(ingredientF);
-                em.persist(products);
             }
-            em.getTransaction().commit();
-/*
-            products.setIngredients(setIngredient);
-*/
-        }
 
+
+            if (null != allergen) {
+                List<String> listAllergen = new ArrayList<String>(asList(allergen.trim().split(",")));
+                for (int k = 0; k < listAllergen.size(); k++) {
+                    Allergen allergen1 = allergenService.findByName(em, listAllergen.get(k));
+                    products.addAllergen(allergen1);
+                }
+            }
+
+            List<String> listAdditive = new ArrayList<String>(asList(additive.trim().split("-")));
+
+
+            for (int l = 0; l < listAdditive.size(); l++) {
+
+                Additive additive1 = additiveService.findByName(em, listAdditive.get(l));
+                products.addAdditive(additive1);
+            }
+            em.persist(products);
+            em.getTransaction().commit();
+        }
     }
 
 

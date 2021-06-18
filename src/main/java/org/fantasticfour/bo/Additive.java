@@ -2,6 +2,7 @@ package org.fantasticfour.bo;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,18 +13,20 @@ public class Additive implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name",length = 100,nullable = true)
+    @Column(name = "name", length = 100, nullable = true)
     private String name;
 
-    @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "additives")
     private Set<Product> products;
-    
 
+    {
+        this.products = new HashSet<>();
+    }
 
     public Additive() {
 
     }
-    
+
 
     public Additive(String name) {
         this.name = name;
@@ -36,12 +39,10 @@ public class Additive implements Serializable {
 
     /**
      * get field @Id
-     @GeneratedValue
-
-      *
-      * @return id @Id
-     @GeneratedValue
-
+     *
+     * @return id @Id
+     * @GeneratedValue
+     * @GeneratedValue
      */
     public Long getId() {
         return this.id;
@@ -49,12 +50,10 @@ public class Additive implements Serializable {
 
     /**
      * set field @Id
-     @GeneratedValue
-
-      *
-      * @param id @Id
-     @GeneratedValue
-
+     *
+     * @param id @Id
+     * @GeneratedValue
+     * @GeneratedValue
      */
     public void setId(Long id) {
         this.id = id;
@@ -64,7 +63,6 @@ public class Additive implements Serializable {
      * get field @Column(name = "name",length = 100,nullable = false)
      *
      * @return name @Column(name = "name",length = 100,nullable = false)
-
      */
     public String getName() {
         return this.name;
@@ -74,7 +72,6 @@ public class Additive implements Serializable {
      * set field @Column(name = "name",length = 100,nullable = false)
      *
      * @param name @Column(name = "name",length = 100,nullable = false)
-
      */
     public void setName(String name) {
         this.name = name;
@@ -84,7 +81,6 @@ public class Additive implements Serializable {
      * get field @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
      *
      * @return products @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
-
      */
     public Set<Product> getProducts() {
         return this.products;
@@ -94,7 +90,6 @@ public class Additive implements Serializable {
      * set field @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
      *
      * @param products @ManyToMany(mappedBy = "additives",cascade =CascadeType.PERSIST)
-
      */
     public void setProducts(Set<Product> products) {
         this.products = products;

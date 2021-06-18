@@ -2,6 +2,7 @@ package org.fantasticfour.bo;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -56,13 +57,14 @@ public class Product implements Serializable {
     @Column(name = "huile_de_palme")
     private boolean palm_oil;
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "prod_add",
             joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_additive", referencedColumnName = "id"))
     private Set<Additive> additives;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+
+    @ManyToMany
     @JoinTable(name = "prod_ing",
             joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "id"))
@@ -74,17 +76,24 @@ public class Product implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
     private Set<Vitamine> vitamines;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_category")
     private Category categorie;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     @JoinColumn(name = "id_product")
     private Set<Allergen> allergenes;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_mark")
     private Mark mark;
+
+    {
+        this.ingredients = new HashSet<>();
+        this.vitamines = new HashSet<>();
+        this.allergenes = new HashSet<>();
+        this.additives = new HashSet<>();
+    }
 
     public Product() {
         super();
@@ -259,6 +268,14 @@ public class Product implements Serializable {
         this.additives = additives;
     }
 
+
+    public void addAdditive(Additive additive) {
+        if (additive != null) {
+            additives.add(additive);
+            additive.getProducts().add(this);
+        }
+    }
+
     public Set<Ingredient> getIngredients() {
         return ingredients;
     }
@@ -270,13 +287,11 @@ public class Product implements Serializable {
     }
 
     public void addIngredient(Ingredient ingredients1) {
-        if(ingredients != null) {
+        if (ingredients1 != null) {
             ingredients.add(ingredients1);
             ingredients1.getProducts().add(this);
         }
-
     }
-
 
 
     public Category getCategorie() {
@@ -286,7 +301,6 @@ public class Product implements Serializable {
     public void setCategorie(Category categorie) {
 
         this.categorie = categorie;
-
 
 
     }
@@ -300,6 +314,12 @@ public class Product implements Serializable {
     }
 
 
+    public void addAllergen(Allergen allergen) {
+        if (allergen != null) {
+            allergenes.add(allergen);
+            allergen.setProduct(this);
+        }
+    }
     /**
      * get field @ManyToMany
      *
@@ -330,6 +350,13 @@ public class Product implements Serializable {
         this.vitamines = vitamines;
     }
 
+
+    public void addVitamine(Vitamine vitamine) {
+        if (vitamine != null) {
+            vitamines.add(vitamine);
+            vitamine.getProducts().add(this);
+        }
+    }
     /**
      * get field @ManyToOne(cascade = CascadeType.PERSIST)
      *
@@ -353,4 +380,6 @@ public class Product implements Serializable {
     public void setMark(Mark mark) {
         this.mark = mark;
     }
+
+
 }
