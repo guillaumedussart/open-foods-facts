@@ -62,7 +62,7 @@ public class Product implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "id_additive", referencedColumnName = "id"))
     private Set<Additive> additives;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "prod_ing",
             joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "id"))
