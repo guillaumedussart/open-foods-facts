@@ -14,18 +14,11 @@ import org.fantasticfour.dal.IAdditiveDAO;
 
 public class AdditiveJPADAO implements IAdditiveDAO {
 
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
-	private EntityManager em = emf.createEntityManager();
+
 
 	@Override
 	public void create(Additive o) throws SQLException {
-		em.getTransaction().begin();
 
-		Additive additive = new Additive(o.getName());
-
-		em.persist(additive);
-
-		em.getTransaction().commit();
 
 	}
 
@@ -41,15 +34,6 @@ public class AdditiveJPADAO implements IAdditiveDAO {
 		return null;
 	}
 
-	public Additive findByName(String string) throws SQLException {
-		TypedQuery<Additive> query = em.createQuery("SELECT name FROM categories WHERE name =:name ", Additive.class);
-		query.setParameter("name", string);
-
-		Additive additive = query.getSingleResult();
-
-		return additive;
-
-	}
 
 	@Override
 	public void update(Additive o) throws SQLException {
