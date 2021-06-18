@@ -269,19 +269,10 @@ public class Product implements Serializable {
 
     }
 
-    public void addIngredient(Set<Ingredient> ingredients1) {
-        for(Ingredient ingredient : ingredients1) {
-            if (ingredient == null) {
-                this.ingredients.remove(this);
-            }
-        }
-
-        this.ingredients =ingredients1;
-
-        for(Ingredient ingredient : ingredients1) {
-            if (ingredient != null) {
-                this.ingredients.add(ingredient);
-            }
+    public void addIngredient(Ingredient ingredients1) {
+        if(ingredients != null) {
+            ingredients.add(ingredients1);
+            ingredients1.getProducts().add(this);
         }
 
     }
@@ -293,13 +284,11 @@ public class Product implements Serializable {
     }
 
     public void setCategorie(Category categorie) {
-        if (categorie.getProducts().contains(this)) {
-            categorie.getProducts().remove(this);
-        }
+
         this.categorie = categorie;
-        if (!categorie.getProducts().contains(this)) {
-            categorie.getProducts().add(this);
-        }
+
+
+
     }
 
     public Set<Allergen> getAllergenes() {
@@ -349,6 +338,8 @@ public class Product implements Serializable {
      * @JoinColumn(name = "id_mark")
      */
     public Mark getMark() {
+
+
         return this.mark;
     }
 

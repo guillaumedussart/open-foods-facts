@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.*;
 
+import static java.util.Arrays.*;
+
 public class AppService {
 
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
@@ -56,13 +58,15 @@ public class AppService {
     private static IngredientService ingredientService = IngredientService.getSingle();
     private static ProductService productService = ProductService.getSingle();
     private static MarkService markService = MarkService.getSingle();
+    private static CategoryService categoryService = CategoryService.getSingle();
 
     private HashSet<String> deleteSameIngredients = new HashSet<>();
     private HashSet<String> deleteSameCategories = new HashSet<>();
     private HashSet<String> deleteSameMarks = new HashSet<>();
     private HashSet<String> deleteSameAdditive = new HashSet<>();
     private HashSet<String> deleteSameAllergen = new HashSet<>();
-    private Set<Ingredient> setIngredient = new HashSet<>();
+
+    private Set<Vitamine> setVitamine = new HashSet<>();
 
     private AppService() {
     }//Prevent initialization
@@ -266,23 +270,25 @@ public class AppService {
 
             Product products = new Product(name, nutriGrade, energie, fat, sugar, fiber, proteins, salt, calcium, magnesium, iron, fer, beta_carotene, palm_oil);
             em.persist(products);
+            Vitamine vitamines = new Vitamine(vitA, vitD, vitE, vitK, vitC, vitB1, vitB2, vitPP, vitB6, vitB9, vitB12);
+            em.persist(vitamines);
 
 
             String replaceEnderscoreIngredients = this.pruifyIngredientCsv(ingredients);
 
 
-            List<String> blockIngredient = new ArrayList<String>(Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
+            List<String> blockIngredient = new ArrayList<String>(asList(replaceEnderscoreIngredients.trim().split(",")));
             for (int j = 0; j < blockIngredient.size(); j++) {
                 if (deleteSameIngredients.add(blockIngredient.get(j).trim())) {
-                    System.out.println(blockIngredient.get(j));
-                    Ingredient ingredientsDB = new Ingredient(blockIngredient.get(j));
+                    System.out.println(blockIngredient.get(j).trim());
+                    Ingredient ingredientsDB = new Ingredient(blockIngredient.get(j).trim());
                     em.persist(ingredientsDB);
                 }
             }
 
 
             if (null != allergen) {
-                List<String> listAllergen = new ArrayList<String>(Arrays.asList(allergen.trim().split(",")));
+                List<String> listAllergen = new ArrayList<String>(asList(allergen.trim().split(",")));
                 for (int k = 0; k < listAllergen.size(); k++) {
                     if (deleteSameAllergen.add(listAllergen.get(k))) {
                         System.out.println(listAllergen.get(k));
@@ -293,7 +299,7 @@ public class AppService {
                 }
             }
 
-            List<String> listAdditive = new ArrayList<String>(Arrays.asList(additive.trim().split("-")));
+            List<String> listAdditive = new ArrayList<String>(asList(additive.trim().split("-")));
 
 
             for (int l = 0; l < listAdditive.size(); l++) {
@@ -318,7 +324,7 @@ public class AppService {
     public void updateDataBase() throws IOException, SQLException {
 
         List<String> lines = initFile();
-
+        Set<Ingredient> setIngredient = new HashSet<>();
 
         for (int i = 1; i < lines.size(); i++) {
 
@@ -328,36 +334,42 @@ public class AppService {
             if (part.length != 30) {
                 continue;
             }
+            String category = part[0];
             String name = part[2];
             String ingredients = part[4];
             String marks = part[1];
-            em.getTransaction().begin();
-
             System.out.println("produit----------------------------------------------");
+            em.getTransaction().begin();
             Product products = productService.findByName(em, name);
+
             System.out.println(products.getName());
+
             Mark mark = markService.findByName(em, marks);
             products.setMark(mark);
+
+
+            Category caterory = categoryService.findByName(em, category);
+            products.setCategorie(caterory);
             String replaceEnderscoreIngredients = pruifyIngredientCsv(ingredients);
-            em.getTransaction().commit();
 
 
-            List<String> blockIngredient = new ArrayList<String>(Arrays.asList(replaceEnderscoreIngredients.trim().split(",")));
+            List<String> blockIngredient = new ArrayList<String>(asList(replaceEnderscoreIngredients.trim().split(",")));
 
             System.out.println("block ingredient--------------------------------------");
-            em.getTransaction().begin();
-            for (int j = 0; j < blockIngredient.size(); j++) {
 
+            for (int j = 0; j < blockIngredient.size(); j++) {
                 System.out.println(blockIngredient.get(j));
-                Ingredient ingredientF = ingredientService.findByName(em, blockIngredient.get(j));
+                Ingredient ingredientF = ingredientService.findByName(em, blockIngredient.get(j).trim());
                 setIngredient.add(ingredientF);
-                if (null != ingredientF) {
-                    products.getIngredients().add(ingredientF);
-                }
+                products.addIngredient(ingredientF);
                 em.persist(products);
             }
             em.getTransaction().commit();
+/*
+            products.setIngredients(setIngredient);
+*/
         }
+
     }
 
 

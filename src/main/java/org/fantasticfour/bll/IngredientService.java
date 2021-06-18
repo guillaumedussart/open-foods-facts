@@ -35,12 +35,12 @@ public class IngredientService {
     public Ingredient findByName(EntityManager em, String string) throws SQLException {
         TypedQuery<Ingredient> query = em.createQuery("SELECT i FROM Ingredient i WHERE i.name = :name", Ingredient.class);
         query.setParameter("name", string);
-        return query.getSingleResult();
-        /*List<Ingredient> ingredient = query.getResultList();
+        List<Ingredient> ingredient = query.getResultList();
         if (!ingredient.isEmpty()) {
             return ingredient.get(0);
         }
 
-        return null;*/
+        return null;
+
     }
 }

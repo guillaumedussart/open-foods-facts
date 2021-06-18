@@ -1,6 +1,7 @@
 package org.fantasticfour.bll;
 
 
+import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.bo.Mark;
 import org.fantasticfour.bo.Product;
 import org.fantasticfour.dal.DAOFactory;
@@ -36,12 +37,12 @@ public class MarkService {
         System.out.println(string);
         TypedQuery<Mark> query = em.createQuery("SELECT m FROM Mark m WHERE m.name = :name", Mark.class);
         query.setParameter("name", string);
-
         List<Mark> mark = query.getResultList();
         if (!mark.isEmpty()) {
             return mark.get(0);
         }
-        return null;
+
+        return query.getSingleResult();
     }
 
 }
