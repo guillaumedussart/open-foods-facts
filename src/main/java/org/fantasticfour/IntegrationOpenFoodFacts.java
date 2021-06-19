@@ -13,16 +13,23 @@ import java.util.*;
 public class IntegrationOpenFoodFacts {
 
 
+<<<<<<< HEAD
     //  private static final AppService appService = AppService.getSingle();
     private static final ProductService prodService = ProductService.getSingle();
+=======
+//  private static final AppService appService = AppService.getSingle();
+>>>>>>> 9f2324b95dc4737ca7370b3637f676ba07092c37
 
 
     public static void main(String[] args) throws IOException, SQLException {
         Scanner scanner = new Scanner(System.in);
 //        appService.insertFromCsvToDataBase();
 //        appService.updateDataBase();
+<<<<<<< HEAD
 
         String choixMenu = "0";
+=======
+>>>>>>> 9f2324b95dc4737ca7370b3637f676ba07092c37
 
         do {
 
