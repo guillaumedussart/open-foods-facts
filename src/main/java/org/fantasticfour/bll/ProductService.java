@@ -9,6 +9,8 @@ import org.fantasticfour.dal.IProductDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.sql.SQLException;
@@ -52,11 +54,14 @@ public class ProductService {
         return null;
     }
     
+
+    
     public List<Product> findByNameLike(String string) {
     	
-    	TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p left join fetch p.ingredients join fetch p.additives  join fetch Allergen al join fetch Mark join fetch p.vitamines join fetch Category where p.name  like :name order by p.name", Product.class);
+    	
+    	TypedQuery<Product> query = em.createQuery("SELECT DISTINCT p FROM Product p left join fetch p.ingredients left join fetch p.additives left join fetch p.allergenes left join fetch p.mark left join fetch p.vitamines left join fetch p.categorie where p.name like :name GROUP BY p.name order by p.name", Product.class);
 
-    	query.setParameter("name", string);
+    	query.setParameter("name", '%'+string+'%');
     	
     	List<Product> products = query.getResultList();
     	if(!products.isEmpty()) {

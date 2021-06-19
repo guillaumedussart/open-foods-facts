@@ -1,36 +1,52 @@
 package org.fantasticfour;
 
 import org.fantasticfour.bll.AppService;
+import org.fantasticfour.bll.ProductService;
+import org.fantasticfour.bo.Product;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 public class IntegrationOpenFoodFacts {
 
 
-  private static final AppService appService = AppService.getSingle();
+//  private static final AppService appService = AppService.getSingle();
+	private static final ProductService prodService = ProductService.getSingle();
 
 
     public static void main(String[] args) throws IOException, SQLException {
         Scanner scanner = new Scanner(System.in);
-        appService.insertFromCsvToDataBase();
-        appService.updateDataBase();
+//        appService.insertFromCsvToDataBase();
+//        appService.updateDataBase();
 
-        int choix = 0;
+        String choixMenu="0";
+        
         do {
 
 
             afficherMenu();
 
 
-            String choixMenu = scanner.nextLine();
+            choixMenu = scanner.nextLine();
+            
+            List<Product> listProducts = prodService.findByNameLike(choixMenu);
+            
+            for (Iterator iterator = listProducts.iterator(); iterator.hasNext();) {
+				Product product = (Product) iterator.next();
+				System.out.println("|---------------------------------------------------------------------");
+				System.out.println("| "+product.getName()+" | "+product.getNutri_score()+"");
+				
+			}
+            
 
 
 
 
 
-        } while (choix != 99);
+        } while (!choixMenu.equals("99"));
 
         scanner.close();
     }
