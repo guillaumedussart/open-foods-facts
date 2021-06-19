@@ -4,4 +4,3 @@
 /target/
 
 src/main/resources/data.properties
-src/main/resources/META-INF/persistence.xml
