@@ -7,7 +7,8 @@
 - Dimitri Cousin 
 
 Diagrammes :
-- UML -> src/main/resources/files/
-- MPD -> src/main/resources/files/
+- UML -> src/main/resources/files/diag-class/diagrammeClasse.pdf
+- MPD -> src/main/resources/files/mdp/mdf.pdf
+- SQL -> src/main/resources/files/sql/foods.sql
 
 Création d'une application exécutable en console avec intégration de la base de données OpenFoodFacts

@@ -209,7 +209,7 @@ public class AppService {
     private List<String> initFile() throws IOException {
         ResourceBundle bundle = ResourceBundle.getBundle("db");
         PATH_FILE = bundle.getString("path.file");
-        Path paths = Paths.get(PATH_FILE + "src/main/resources/files/open-food-facts.csv");
+        Path paths = Paths.get(PATH_FILE + "src/main/resources/files/csv/open-food-facts.csv");
         List<String> lines = Files.readAllLines(paths, StandardCharsets.UTF_8);
         return lines;
     }
