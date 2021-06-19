@@ -9,13 +9,13 @@ import java.util.Scanner;
 public class IntegrationOpenFoodFacts {
 
 
-  private static final AppService appService = AppService.getSingle();
+//  private static final AppService appService = AppService.getSingle();
 
 
     public static void main(String[] args) throws IOException, SQLException {
         Scanner scanner = new Scanner(System.in);
-        appService.insertFromCsvToDataBase();
-        appService.updateDataBase();
+//        appService.insertFromCsvToDataBase();
+//        appService.updateDataBase();
 
         int choix = 0;
         do {
