@@ -2,13 +2,13 @@ package org.fantasticfour;
 
 import org.fantasticfour.bll.AppService;
 import org.fantasticfour.bll.ProductService;
+import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.bo.Product;
+import org.fantasticfour.bo.Vitamine;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class IntegrationOpenFoodFacts {
 
@@ -37,7 +37,27 @@ public class IntegrationOpenFoodFacts {
             for (Iterator iterator = listProducts.iterator(); iterator.hasNext();) {
 				Product product = (Product) iterator.next();
 				System.out.println("|---------------------------------------------------------------------");
-				System.out.println("| "+product.getName()+" | "+product.getNutri_score()+"");
+				System.out.println("produit : "+product.getName());
+                System.out.println("nutri-score : "+product.getNutri_score());
+                System.out.println("categorie : "+product.getCategorie().getName());
+                System.out.println("marque: "+product.getMark().getName());
+                System.out.println("alergenne: "+product.getAllergenes());
+                System.out.println(product.getIngredients());
+
+                Set<Ingredient> ingredientSet ;
+                ingredientSet= new HashSet<>(product.getIngredients());
+                Iterator<Ingredient> it = ingredientSet.iterator();
+
+                while(it.hasNext()){
+                    System.out.println(it.next());
+                }
+
+                Set<Vitamine> vitamineList= product.getVitamines();
+
+                for (int i = 0;i< vitamineList.size();i++) {
+                    String vitamine = vitamineList.toString();
+                    System.out.println("vitamines : " + vitamine);
+                }
 				
 			}
             

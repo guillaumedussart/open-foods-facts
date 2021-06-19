@@ -94,4 +94,6 @@ public class Ingredient implements Serializable {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
+
+
 }
