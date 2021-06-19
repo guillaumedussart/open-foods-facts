@@ -59,7 +59,7 @@ public class ProductService {
     public List<Product> findByNameLike(String string) {
     	
     	
-    	TypedQuery<Product> query = em.createQuery("SELECT  p FROM Product p left outer join fetch p.ingredients left  join fetch p.additives left  join fetch p.allergenes left join fetch p.mark left join fetch p.vitamines left join fetch p.categorie where p.name like :name GROUP BY p.name order by p.name", Product.class);
+    	TypedQuery<Product> query = em.createQuery("SELECT distinct p FROM Product p inner join fetch  p.ingredients i left  join fetch p.additives left  join fetch p.allergenes left join fetch p.mark left join fetch p.vitamines left join fetch p.categorie where p.name like :name  order by p.name", Product.class);
 
     	query.setParameter("name", '%'+string+'%');
     	

@@ -42,14 +42,13 @@ public class IntegrationOpenFoodFacts {
                 System.out.println("categorie : "+product.getCategorie().getName());
                 System.out.println("marque: "+product.getMark().getName());
                 System.out.println("alergenne: "+product.getAllergenes());
-                System.out.println(product.getIngredients());
 
-                Set<Ingredient> ingredientSet ;
-                ingredientSet= new HashSet<>(product.getIngredients());
+
+                Set<Ingredient> ingredientSet = new HashSet<>(product.getIngredients());
                 Iterator<Ingredient> it = ingredientSet.iterator();
 
                 while(it.hasNext()){
-                    System.out.println(it.next());
+                    System.out.println("ingredients "+it.next().getName());
                 }
 
                 Set<Vitamine> vitamineList= product.getVitamines();

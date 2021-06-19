@@ -64,7 +64,7 @@ public class Product implements Serializable {
     private Set<Additive> additives;
 
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "prod_ing",
             joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "id"))
@@ -87,7 +87,6 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_mark")
     private Mark mark;
-
     {
         this.ingredients = new HashSet<>();
         this.vitamines = new HashSet<>();
