@@ -42,6 +42,12 @@ public class IntegrationOpenFoodFacts {
                 System.out.println("Categorie : "+product.getCategorie().getName());
                 System.out.println("Marque : "+product.getMark().getName());
                 System.out.println("Alergenne(s) : "+product.getAllergenes());
+                String palm;
+                if(product.isPalm_oil()){
+                    palm = "presence";
+                }else{
+                    palm = "absence";
+                }
 
 
                 Set<Ingredient> ingredientSet = new HashSet<>(product.getIngredients());
@@ -58,7 +64,7 @@ public class IntegrationOpenFoodFacts {
                     String vitamine = vitamineList.toString();
                     System.out.println("Vitamines (apport pour 100g) : " + vitamine);
                 }
-				
+                System.out.println("Presence huile de palme : "+palm);
 			}
             
 
