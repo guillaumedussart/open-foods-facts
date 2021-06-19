@@ -37,25 +37,26 @@ public class IntegrationOpenFoodFacts {
             for (Iterator iterator = listProducts.iterator(); iterator.hasNext();) {
 				Product product = (Product) iterator.next();
 				System.out.println("|---------------------------------------------------------------------");
-				System.out.println("produit : "+product.getName());
-                System.out.println("nutri-score : "+product.getNutri_score());
-                System.out.println("categorie : "+product.getCategorie().getName());
-                System.out.println("marque: "+product.getMark().getName());
-                System.out.println("alergenne: "+product.getAllergenes());
+				System.out.println("Produit : "+product.getName());
+                System.out.println("Nutri-score : "+product.getNutri_score());
+                System.out.println("Categorie : "+product.getCategorie().getName());
+                System.out.println("Marque : "+product.getMark().getName());
+                System.out.println("Alergenne(s) : "+product.getAllergenes());
 
 
                 Set<Ingredient> ingredientSet = new HashSet<>(product.getIngredients());
                 Iterator<Ingredient> it = ingredientSet.iterator();
 
+                System.out.println("Ingredients :");
                 while(it.hasNext()){
-                    System.out.println("ingredients "+it.next().getName());
+                    System.out.println("  - "+it.next().getName());
                 }
 
                 Set<Vitamine> vitamineList= product.getVitamines();
 
                 for (int i = 0;i< vitamineList.size();i++) {
                     String vitamine = vitamineList.toString();
-                    System.out.println("vitamines : " + vitamine);
+                    System.out.println("Vitamines (apport pour 100g) : " + vitamine);
                 }
 				
 			}
