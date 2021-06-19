@@ -13,8 +13,8 @@ import java.util.*;
 public class IntegrationOpenFoodFacts {
 
 
-//  private static final AppService appService = AppService.getSingle();
-	private static final ProductService prodService = ProductService.getSingle();
+    //  private static final AppService appService = AppService.getSingle();
+    private static final ProductService prodService = ProductService.getSingle();
 
 
     public static void main(String[] args) throws IOException, SQLException {
@@ -22,8 +22,8 @@ public class IntegrationOpenFoodFacts {
 //        appService.insertFromCsvToDataBase();
 //        appService.updateDataBase();
 
-        String choixMenu="0";
-        
+        String choixMenu = "0";
+
         do {
 
 
@@ -31,52 +31,48 @@ public class IntegrationOpenFoodFacts {
 
 
             choixMenu = scanner.nextLine();
-            
+
             List<Product> listProducts = prodService.findByNameLike(choixMenu);
-            
-            for (Iterator iterator = listProducts.iterator(); iterator.hasNext();) {
-				Product product = (Product) iterator.next();
-				System.out.println("|---------------------------------------------------------------------");
-				System.out.println("Produit : "+product.getName());
-                System.out.println("Nutri-score : "+product.getNutri_score());
-                System.out.println("Categorie : "+product.getCategorie().getName());
-                System.out.println("Marque : "+product.getMark().getName());
-                System.out.println("Alergenne(s) : "+product.getAllergenes());
+
+            for (Iterator iterator = listProducts.iterator(); iterator.hasNext(); ) {
+                Product product = (Product) iterator.next();
+                System.out.println("|---------------------------------------------------------------------");
+                System.out.println("| Produit : " + product.getName());
+                System.out.println("| Nutri-score : " + product.getNutri_score());
+                System.out.println("| Categorie : " + product.getCategorie().getName());
+                System.out.println("| Marque : " + product.getMark().getName());
+                System.out.println("| Alergenne(s) : " + product.getAllergenes());
                 String palm;
-                if(product.isPalm_oil()){
-                    palm = "presence";
-                }else{
-                    palm = "absence";
+                if (product.isPalm_oil()) {
+                    palm = " presence";
+                } else {
+                    palm = " absence";
                 }
 
 
                 Set<Ingredient> ingredientSet = new HashSet<>(product.getIngredients());
                 Iterator<Ingredient> it = ingredientSet.iterator();
 
-                System.out.println("Ingredients :");
-                while(it.hasNext()){
-                    System.out.println("  - "+it.next().getName());
+                System.out.println("| Ingredients :");
+                while (it.hasNext()) {
+                    System.out.println("|  - " + it.next().getName());
                 }
 
-                Set<Vitamine> vitamineList= product.getVitamines();
+                Set<Vitamine> vitamineList = product.getVitamines();
 
-                for (int i = 0;i< vitamineList.size();i++) {
+                for (int i = 0; i < vitamineList.size(); i++) {
                     String vitamine = vitamineList.toString();
-                    System.out.println("Vitamines (apport pour 100g) : " + vitamine);
+                    System.out.println("| Vitamines (apport pour 100g) : " + vitamine);
                 }
-                System.out.println("Presence huile de palme : "+palm);
-			}
-            
-
-
-
+                System.out.println("| Presence huile de palme : " + palm);
+                System.out.println("|-----------------------------------------------------------------------");
+            }
 
 
         } while (!choixMenu.equals("99"));
 
         scanner.close();
     }
-
 
 
     /**
