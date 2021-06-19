@@ -57,36 +57,36 @@ public class Product implements Serializable {
     @Column(name = "huile_de_palme")
     private boolean palm_oil;
 
-    @ManyToMany()
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "prod_add",
             joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_additive", referencedColumnName = "id"))
     private Set<Additive> additives;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "prod_ing",
             joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_ingredient", referencedColumnName = "id"))
     private Set<Ingredient> ingredients;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "prod_vit",
             joinColumns = @JoinColumn(name = "id_product", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_vitamine", referencedColumnName = "id"))
     private Set<Vitamine> vitamines;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_category")
     private Category categorie;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     @JoinColumn(name = "id_product")
     private Set<Allergen> allergenes;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_mark")
     private Mark mark;
-
     {
         this.ingredients = new HashSet<>();
         this.vitamines = new HashSet<>();

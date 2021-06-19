@@ -9,12 +9,17 @@ import org.fantasticfour.dal.IProductDAO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.sql.SQLException;
 import java.util.List;
 
 public class ProductService {
+	
+	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts-get");
+	private EntityManager em = emf.createEntityManager();
 
     private static ProductService single;
     private IProductDAO dao = DAOFactory.getProductDAO();
@@ -47,6 +52,23 @@ public class ProductService {
         }
 
         return null;
+    }
+    
+
+    
+    public List<Product> findByNameLike(String string) {
+    	
+    	
+    	TypedQuery<Product> query = em.createQuery("SELECT distinct p FROM Product p inner join fetch  p.ingredients i left  join fetch p.additives left  join fetch p.allergenes left join fetch p.mark left join fetch p.vitamines left join fetch p.categorie where p.name like :name  order by p.name", Product.class);
+
+    	query.setParameter("name", '%'+string+'%');
+    	
+    	List<Product> products = query.getResultList();
+    	if(!products.isEmpty()) {
+    		return products;
+    	}
+		
+    	return null;
     }
 
 }

@@ -17,7 +17,7 @@ public class Ingredient implements Serializable {
     @Column(name = "name", length = 255)
     private String name;
 
-    @ManyToMany(mappedBy = "ingredients", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "ingredients")
     private Set<Product> products;
 
     {
@@ -94,4 +94,6 @@ public class Ingredient implements Serializable {
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
+
+
 }

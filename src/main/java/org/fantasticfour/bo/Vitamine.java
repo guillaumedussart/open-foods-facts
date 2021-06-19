@@ -351,4 +351,11 @@ public class Vitamine implements Serializable{
     public void setProducts(Set<Product> products) {
         this.products = products;
     }
+
+	@Override
+	public String toString() {
+		return "vitA=" + vitA + ", vitD=" + vitD + ", vitE=" + vitE + ", vitK=" + vitK + ", vitC=" + vitC
+				+ ", vitB1=" + vitB1 + ", vitB2=" + vitB2 + ", vitPP=" + vitPP + ", vitB6=" + vitB6 + ", vitB9=" + vitB9
+				+ ", vitB12=" + vitB12;
+	}
 }

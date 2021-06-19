@@ -13,19 +13,11 @@ import java.util.Set;
 
 public class AllergenJPADAO implements IallergenDAO {
 
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
-	private EntityManager em = emf.createEntityManager();
+	
 
 	@Override
 	public void create(Additive o) throws SQLException {
-		em.getTransaction().begin();
-
-		Additive additive = new Additive(o.getName());
-
-		em.persist(additive);
-
-		em.getTransaction().commit();
-
+		
 	}
 
 	@Override

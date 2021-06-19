@@ -14,7 +14,7 @@ public class Allergen implements Serializable{
     @Column(name = "name",length = 100,nullable = true)
     private String nom;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "id_product")
     private Product product;
 
@@ -105,4 +105,11 @@ public class Allergen implements Serializable{
     public void setProduct(Product product) {
         this.product = product;
     }
+
+
+
+	@Override
+	public String toString() {
+		return "nom=" + nom ;
+	}
 }

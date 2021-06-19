@@ -19,7 +19,7 @@ public class Category implements Serializable {
     @Column(name = "name")
 	private String name;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany
     @JoinColumn(name = "id_category")
     private Set<Product> products;
 	{
