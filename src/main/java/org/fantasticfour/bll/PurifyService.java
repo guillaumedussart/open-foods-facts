@@ -5,9 +5,13 @@ import java.util.Locale;
 
 public class PurifyService {
 
-    private static PurifyService single;
+
     private PurifyService() {
     }//Prevent initialization
+
+    private static class PurifyHolder {
+        private final static PurifyService single = new PurifyService();
+    }
 
     /**
      * get single
@@ -17,10 +21,7 @@ public class PurifyService {
      */
     public static PurifyService getSingle() {
 
-        if (null == single) {
-            single = new PurifyService();
-        }
-        return single;
+        return PurifyHolder.single;
     }
 
 
