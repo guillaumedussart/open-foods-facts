@@ -9,6 +9,21 @@ public final class DAOFactory {
     private DAOFactory() {
     }
 
+    private static class DAOFactoryHolder {
+        private static DAOFactory single;
+
+        static {
+            single = new DAOFactory();
+        }
+    }
+
+    public static DAOFactory getSingle() {
+
+        return DAOFactoryHolder.single;
+    }
+
+
+
     public static ICategoryDAO getCategoryDAO() {
 
         ICategoryDAO dao = null;

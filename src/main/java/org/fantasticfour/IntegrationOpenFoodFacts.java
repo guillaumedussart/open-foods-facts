@@ -5,6 +5,7 @@ import org.fantasticfour.bll.ProductService;
 import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.bo.Product;
 import org.fantasticfour.bo.Vitamine;
+import org.fantasticfour.exception.NotFindProductException;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ public class IntegrationOpenFoodFacts {
     private static final ProductService prodService = ProductService.getSingle();
 
 
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException, SQLException, NotFindProductException {
         Scanner scanner = new Scanner(System.in);
 //        appService.insertFromCsvToDataBase();
 //        appService.updateDataBase();

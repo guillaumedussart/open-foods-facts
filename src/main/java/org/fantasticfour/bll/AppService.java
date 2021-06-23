@@ -1,6 +1,7 @@
 package org.fantasticfour.bll;
 
 import org.fantasticfour.bo.*;
+import org.fantasticfour.exception.NotFindProductException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -347,7 +348,12 @@ public class AppService {
             String additive = part[29];
             System.out.println("produit----------------------------------------------");
             em.getTransaction().begin();
-            Product products = productService.findByName(em, name);
+            Product products = null;
+            try {
+                products = productService.findByName(name);
+            } catch (NotFindProductException e) {
+                e.printStackTrace();
+            }
 
             System.out.println(products.getName());
 

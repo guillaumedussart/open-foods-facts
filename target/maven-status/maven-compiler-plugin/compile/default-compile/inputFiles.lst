@@ -1,9 +1,12 @@
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bo/Additive.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/csv/CsvVitamine.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/jpa/VitamineJPADAO.java
+/workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bll/AllergenService.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/jpa/ProductJPADAO.java
+/workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bll/PurifyService.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/csv/ConfigCSV.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bll/CategoryService.java
+/workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/jpa/AllergenJPADAO.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bo/Product.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/ICategoryDAO.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bo/Vitamine.java
@@ -13,6 +16,8 @@
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bll/IngredientService.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bll/ProductService.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/IntegrationOpenFoodFacts.java
+/workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/IallergenDAO.java
+/workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bll/AdditiveService.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bo/Category.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/IProductDAO.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/jpa/AdditiveJPADAO.java
@@ -22,6 +27,7 @@
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/csv/Allergens.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/IDAO.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bll/AppService.java
+/workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/bll/MarkService.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/jpa/CategoryJPADAO.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/csv/Additifs.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/jpa/IngredientJPADAO.java
@@ -29,3 +35,4 @@
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/IVitamineDAO.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/csv/Csv_tab.java
 /workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/dal/jpa/MarkJPADAO.java
+/workspace/www/traitement-fichier-jpa-off/src/main/java/org/fantasticfour/OpenFoodFacts.java

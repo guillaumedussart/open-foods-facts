@@ -2,12 +2,14 @@ package org.fantasticfour;
 
 import org.fantasticfour.bll.ProductService;
 import org.fantasticfour.bo.Product;
+import org.fantasticfour.exception.NotFindProductException;
 
 import javax.swing.*;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,7 +39,14 @@ public class OpenFoodFacts extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String food = textFieldPanel.getText();
-                List<Product> listProducts = prodService.findByNameLike(food);
+                List<Product> listProducts = null;
+                try {
+                    listProducts = prodService.findByNameLike(food);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (NotFindProductException notFindProductException) {
+                    notFindProductException.printStackTrace();
+                }
                 for (Iterator iterator = listProducts.iterator(); iterator.hasNext(); ) {
                     Product product = (Product) iterator.next();
                     textArea2.setText(product.getName());
