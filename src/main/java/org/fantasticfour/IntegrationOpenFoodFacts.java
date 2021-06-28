@@ -5,6 +5,7 @@ import org.fantasticfour.bll.ProductService;
 import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.bo.Product;
 import org.fantasticfour.bo.Vitamine;
+import org.fantasticfour.exception.NotFindManagerException;
 import org.fantasticfour.exception.NotFindProductException;
 
 import java.io.IOException;
@@ -30,11 +31,13 @@ public class IntegrationOpenFoodFacts {
 
             afficherMenu();
 
-
+            List<Product> listProducts = null;
             choixMenu = scanner.nextLine();
-
-            List<Product> listProducts = prodService.findByNameLike(choixMenu);
-
+            try {
+                listProducts = prodService.findByNameLike(choixMenu);
+            } catch (NotFindProductException | NotFindManagerException e) {
+                e.getMessage();
+            }
             for (Iterator iterator = listProducts.iterator(); iterator.hasNext(); ) {
                 Product product = (Product) iterator.next();
                 System.out.println("|---------------------------------------------------------------------");

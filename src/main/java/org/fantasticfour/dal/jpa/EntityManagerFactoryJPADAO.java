@@ -1,15 +1,15 @@
 package org.fantasticfour.dal.jpa;
 
+import org.fantasticfour.bo.*;
 import org.fantasticfour.dal.enumerations.EnumDatabaseType;
+import org.fantasticfour.dal.jpa.bootstrap.JpaEntityManagerFactory;
+import org.fantasticfour.exception.NotFindManagerException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class EntityManagerFactoryJPADAO {
 
-    private EntityManager em;
-    private EntityManagerFactory emf;
+
 
     private EntityManagerFactoryJPADAO() {
     }
@@ -27,18 +27,45 @@ public class EntityManagerFactoryJPADAO {
         return EntityManagerFactoryJPADAOHolder.single;
     }
 
-    public EntityManager getManager(EnumDatabaseType type) {
+    /**
+     * @param type
+     * @return
+     */
+    public EntityManager getManager(EnumDatabaseType type) throws NotFindManagerException {
         switch (type) {
             case CREATE:
-                emf = Persistence.createEntityManagerFactory("open-food-facts");
-                em = emf.createEntityManager();
-                return em;
+                return getJpaEntityManager();
             case SELECT:
-                emf = Persistence.createEntityManagerFactory("open-food-facts-get");
-                em = emf.createEntityManager();
-                return em;
+                return getJpaEntityManager();
+            default:
+                throw new NotFindManagerException("Le manager demande est introuvable");
+
         }
-        return null;
     }
 
+    /**
+     *
+     */
+    private static class EntityManagerHolder  {
+        private final static EntityManager ENTITY_MANAGER= new JpaEntityManagerFactory(
+                new Class[]{
+                        Additive.class,
+                        Allergen.class,
+                        Product.class,
+                        Vitamine.class,
+                        Mark.class,
+                        Category.class,
+                        Ingredient.class
+                }
+        ).getEntityManager();
+
+
+    }
+
+    /**
+     * @return
+     */
+    private static EntityManager getJpaEntityManager() {
+        return EntityManagerHolder.ENTITY_MANAGER;
+    }
 }

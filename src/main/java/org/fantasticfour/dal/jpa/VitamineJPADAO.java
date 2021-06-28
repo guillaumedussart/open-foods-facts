@@ -1,6 +1,7 @@
 package org.fantasticfour.dal.jpa;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -11,62 +12,49 @@ import javax.persistence.TypedQuery;
 
 import org.fantasticfour.bo.Vitamine;
 import org.fantasticfour.dal.IVitamineDAO;
+import org.fantasticfour.exception.NotFindManagerException;
+import org.fantasticfour.exception.NotFindProductException;
 
 public class VitamineJPADAO implements IVitamineDAO{
 
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("open-food-facts");
-	private EntityManager em = emf.createEntityManager();
-	
+
 	@Override
 	public void create(Vitamine o) throws SQLException {
-		em.getTransaction().begin();
-		
-		Vitamine vitamine = new Vitamine();
-		
-		em.persist(vitamine);
-		
-		em.getTransaction().commit();
-		
+
 	}
 
 	@Override
-	public Vitamine findById(Long id) throws SQLException {
-		// TODO Auto-generated method stub
+	public Vitamine findById(Long aLong) throws SQLException {
 		return null;
 	}
 
 	@Override
 	public Set<Vitamine> findAll() throws SQLException {
-		// TODO Auto-generated method stub
 		return null;
-	}
-	
-	public Vitamine findByName(String string) throws SQLException{
-		
-		TypedQuery<Vitamine> query = em.createQuery("SELECT v FROM Vitamine v WHERE v.name = :name",Vitamine.class);
-		query.setParameter("name", string);
-
-		Vitamine vitamine = query.getSingleResult();
-		return vitamine;
-		
 	}
 
 	@Override
 	public void update(Vitamine o) throws SQLException {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void delete(Vitamine o) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void deleteById(Long id) throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void deleteById(Long aLong) throws SQLException {
+
 	}
 
+	@Override
+	public Vitamine findByName(String name) throws NotFindProductException, NotFindManagerException {
+		return null;
+	}
+
+	@Override
+	public List<Vitamine> findByNameLike(String name) throws NotFindProductException, NotFindManagerException {
+		return null;
+	}
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 import org.fantasticfour.bo.Product;
 import org.fantasticfour.dal.IProductDAO;
 import org.fantasticfour.dal.enumerations.EnumDatabaseType;
+import org.fantasticfour.exception.NotFindManagerException;
 import org.fantasticfour.exception.NotFindProductException;
 
 import javax.persistence.EntityManager;
@@ -40,8 +41,7 @@ public class ProductJPADAO implements IProductDAO {
      * @see Product
      */
 
-    @Override
-    public Product findByName(String name) throws NotFindProductException {
+    public Product findByName(String name) throws NotFindProductException, NotFindManagerException {
         EntityManager em = EntityManagerFactoryJPADAO.getSingle().getManager(EnumDatabaseType.SELECT);
         TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p WHERE p.name = :name", Product.class);
         query.setParameter("name", name);
@@ -55,8 +55,7 @@ public class ProductJPADAO implements IProductDAO {
         throw new NotFindProductException("Le produit n'a pas ete trouve");
     }
 
-    @Override
-    public List<Product> findByNameLike(String string) throws NotFindProductException {
+    public List<Product> findByNameLike(String string) throws NotFindProductException, NotFindManagerException {
 
         EntityManager em = EntityManagerFactoryJPADAO.getSingle().getManager(EnumDatabaseType.SELECT);
 

@@ -55,7 +55,7 @@ http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd" version="2.1">
             <!-- Drop and create à chaque redémarrage -->
             <property name="javax.persistence.schema-generation.database.action"
                       value="none"/>
-
+<property name="hibernate.connection.url" value=""></property>
             <!-- Affichage des requêtes SQL -->
             <property name="hibernate.show_sql" value="true"/>
             <!-- Paramètres d'accès à la BDD -->

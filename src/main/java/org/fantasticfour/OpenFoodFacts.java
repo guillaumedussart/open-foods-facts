@@ -2,6 +2,7 @@ package org.fantasticfour;
 
 import org.fantasticfour.bll.ProductService;
 import org.fantasticfour.bo.Product;
+import org.fantasticfour.exception.NotFindManagerException;
 import org.fantasticfour.exception.NotFindProductException;
 
 import javax.swing.*;
@@ -46,6 +47,8 @@ public class OpenFoodFacts extends JFrame {
                     throwables.printStackTrace();
                 } catch (NotFindProductException notFindProductException) {
                     notFindProductException.printStackTrace();
+                } catch (NotFindManagerException notFindManagerException) {
+                    notFindManagerException.printStackTrace();
                 }
                 for (Iterator iterator = listProducts.iterator(); iterator.hasNext(); ) {
                     Product product = (Product) iterator.next();

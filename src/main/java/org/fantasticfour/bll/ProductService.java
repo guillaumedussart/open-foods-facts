@@ -4,6 +4,7 @@ package org.fantasticfour.bll;
 import org.fantasticfour.bo.Product;
 import org.fantasticfour.dal.DAOFactory;
 import org.fantasticfour.dal.IProductDAO;
+import org.fantasticfour.exception.NotFindManagerException;
 import org.fantasticfour.exception.NotFindProductException;
 
 import java.sql.SQLException;
@@ -32,13 +33,13 @@ public class ProductService {
         return ProductServiceHolder.single;
     }
 
-    public Product findByName(String name) throws SQLException, NotFindProductException {
+    public Product findByName(String name) throws SQLException, NotFindProductException, NotFindManagerException {
         return dao.findByName(name);
     }
     
 
     
-    public List<Product> findByNameLike(String name) throws SQLException, NotFindProductException {
+    public List<Product> findByNameLike(String name) throws SQLException, NotFindProductException, NotFindManagerException {
     	
     	return dao.findByNameLike(name);
     }

@@ -1,6 +1,7 @@
 package org.fantasticfour.bll;
 
 import org.fantasticfour.bo.*;
+import org.fantasticfour.exception.NotFindManagerException;
 import org.fantasticfour.exception.NotFindProductException;
 
 import javax.persistence.EntityManager;
@@ -351,7 +352,7 @@ public class AppService {
             Product products = null;
             try {
                 products = productService.findByName(name);
-            } catch (NotFindProductException e) {
+            } catch (NotFindProductException | NotFindManagerException e) {
                 e.printStackTrace();
             }
 
