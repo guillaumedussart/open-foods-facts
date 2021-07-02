@@ -1,7 +1,6 @@
 package org.fantasticfour.dal.jpa.bootstrap;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import org.fantasticfour.dal.jpa.bootstrap.HibernatePersistenceUnitInfo;
 import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
 import org.hibernate.jpa.boot.internal.PersistenceUnitInfoDescriptor;
 

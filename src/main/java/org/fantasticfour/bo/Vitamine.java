@@ -3,11 +3,12 @@ package org.fantasticfour.bo;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
 @Table(name = "vitamines")
-public class Vitamine implements Serializable{
+public class Vitamine implements Serializable, Map.Entry<String, Vitamine> {
 
 
     @Id
@@ -358,4 +359,19 @@ public class Vitamine implements Serializable{
 				+ ", vitB1=" + vitB1 + ", vitB2=" + vitB2 + ", vitPP=" + vitPP + ", vitB6=" + vitB6 + ", vitB9=" + vitB9
 				+ ", vitB12=" + vitB12;
 	}
+
+    @Override
+    public String getKey() {
+        return null;
+    }
+
+    @Override
+    public Vitamine getValue() {
+        return null;
+    }
+
+    @Override
+    public Vitamine setValue(Vitamine value) {
+        return null;
+    }
 }

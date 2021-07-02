@@ -7,14 +7,7 @@ import org.fantasticfour.exception.NotFindProductException;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 public class CategoryJPADAO implements ICategoryDAO {
 

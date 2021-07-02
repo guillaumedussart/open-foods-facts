@@ -11,8 +11,6 @@ import org.fantasticfour.exception.NotFindManagerException;
 import org.fantasticfour.exception.NotFindProductException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 public class ProductJPADAO implements IProductDAO {

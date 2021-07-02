@@ -4,12 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
-
-
 import org.fantasticfour.bo.Vitamine;
 import org.fantasticfour.dal.IVitamineDAO;
 import org.fantasticfour.exception.NotFindManagerException;

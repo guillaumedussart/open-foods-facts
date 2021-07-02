@@ -2,6 +2,7 @@ package org.fantasticfour;
 
 import org.fantasticfour.bll.ProductService;
 import org.fantasticfour.bo.Product;
+import org.fantasticfour.bo.Vitamine;
 import org.fantasticfour.exception.NotFindManagerException;
 import org.fantasticfour.exception.NotFindProductException;
 
@@ -11,8 +12,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class OpenFoodFacts extends JFrame {
     private JFrame frame;
@@ -25,6 +27,8 @@ public class OpenFoodFacts extends JFrame {
     private JPanel tabbedPaneVitamines;
     private JLabel JLabelTopTitle;
     private JTextArea textArea1;
+    private JTable table1;
+    private JList list1;
     private JTextArea textArea2;
 
 
@@ -52,8 +56,22 @@ public class OpenFoodFacts extends JFrame {
                 }
                 for (Iterator iterator = listProducts.iterator(); iterator.hasNext(); ) {
                     Product product = (Product) iterator.next();
-                    textArea2.setText(product.getName());
+
+
+                    Set<Vitamine> vitamineList =  product.getVitamines();
+                    Iterator<Vitamine> iterator2 = vitamineList.iterator();
+                    while (iterator2.hasNext()) {
+                        Entry<String, Vitamine> entry =  iterator2.next();
+                        System.out.println(entry.getKey() + " ==> " + entry.getValue());
+                    }
+                    for (int i = 0; i < vitamineList.size(); i++) {
+                        String vitamine = vitamineList.toString();
+                        textArea2.setText("Vitamines (apport pour 100g) : " + vitamine);
+                    }
                 }
+
+
+
             }
         });
     }

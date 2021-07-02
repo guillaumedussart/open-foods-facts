@@ -1,14 +1,8 @@
 package org.fantasticfour.dal.jpa;
 
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 
 import org.fantasticfour.bo.Ingredient;
 import org.fantasticfour.dal.IIngredientDAO;

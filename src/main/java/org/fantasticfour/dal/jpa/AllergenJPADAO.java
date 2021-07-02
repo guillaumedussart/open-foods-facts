@@ -1,15 +1,9 @@
 package org.fantasticfour.dal.jpa;
 
 import org.fantasticfour.bo.Additive;
-import org.fantasticfour.dal.IAdditiveDAO;
 import org.fantasticfour.dal.IallergenDAO;
 import org.fantasticfour.exception.NotFindManagerException;
 import org.fantasticfour.exception.NotFindProductException;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
